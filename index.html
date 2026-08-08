@@ -645,6 +645,62 @@
       .sec-gap {
         margin-top: var(--gap-sec);
       }
+      .why-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: clamp(24px, 4vw, 64px);
+      }
+      .why-copy {
+        flex: 1 1 500px;
+      }
+      .why-desc {
+        margin-top: 18px;
+        font-size: clamp(17px, 1.5vw, 19.5px);
+        font-weight: 500;
+        line-height: 1.9;
+        color: var(--muted);
+        max-width: 58ch;
+      }
+      .why-desc strong {
+        font-weight: 800;
+        color: var(--ink);
+        font-size: 1.08em;
+        /* 본문보다 큰 글자가 줄 높이를 밀지 않도록 문단의 strut 안에 가둔다 */
+        line-height: 1;
+      }
+      .why-art {
+        position: relative;
+        flex: none;
+        width: clamp(200px, 22vw, 290px);
+        /* 오른쪽 끝에 붙지 않게 안쪽으로 당긴다 */
+        margin-right: clamp(0px, 4vw, 64px);
+      }
+      .why-art img {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      /* 마스코트 뒤 원형 조명 */
+      .why-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 128%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        pointer-events: none;
+        background: radial-gradient(
+          circle,
+          rgba(255, 176, 32, 0.34) 0%,
+          rgba(255, 176, 32, 0.16) 38%,
+          rgba(243, 239, 232, 0) 70%
+        );
+        filter: blur(6px);
+      }
       .stat-grid {
         margin-top: clamp(56px, 8vh, 88px);
         display: grid;
@@ -1182,6 +1238,30 @@
           opacity: 1;
           transform: none;
         }
+        /* 좌우 배치를 풀고 제목 → 마스코트 → 설명문 순으로 세운다.
+           .why-copy를 display:contents로 풀어야 설명문이 마스코트 뒤로 갈 수 있다 */
+        .why-head {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+        .why-copy {
+          display: contents;
+        }
+        .why-head .sec-title {
+          max-width: none;
+        }
+        .why-art {
+          order: 2;
+          margin-top: 18px;
+          /* 세로 배치에서는 가운데 정렬이므로 안쪽 당김을 푼다 */
+          margin-right: 0;
+        }
+        .why-desc {
+          order: 3;
+          margin-top: 18px;
+          max-width: none;
+        }
       }
       @media (max-width: 520px) {
         .nav .btn-primary {
@@ -1210,7 +1290,12 @@
 
       <nav class="nav">
         <span class="nav-brand">
-          <img src="assets/mascot-splash.webp" width="200" height="200" alt="" />
+          <img
+            src="assets/mascot-splash.webp"
+            width="200"
+            height="200"
+            alt=""
+          />
           <span>IsFam</span>
         </span>
         <a class="nav-link" href="#test">체험하기</a>
@@ -1238,7 +1323,12 @@
 
         <div class="hero-art">
           <div class="phone phone-hero">
-            <img src="assets/app-splash.webp" width="474" height="928" alt="IsFam 앱 스플래시 화면 · 가족의 목소리를 기억하는 AI 보이스피싱 보호" />
+            <img
+              src="assets/app-splash.webp"
+              width="474"
+              height="928"
+              alt="IsFam 앱 스플래시 화면 · 가족의 목소리를 기억하는 AI 보이스피싱 보호"
+            />
           </div>
 
           <div class="chips">
@@ -1255,10 +1345,10 @@
       <div class="wrap quiz-shell">
         <div class="quiz-head" data-reveal>
           <span class="kicker">00 — 딥보이스 체험</span>
-          <h2>진짜 가족 목소리를<br />찾을 수 있나요?</h2>
+          <h2>진짜 사람 목소리를<br />찾을 수 있나요?</h2>
           <p>
-            두 음성을 듣고 선택해 보세요. 실제로 대부분의 사람들이 구별하지
-            못합니다.
+            AI목소리와 사람 목소리 중 사람 목소리를 선택해주세요. 실제로 많은
+            사람들이 구별하지 못합니다.
           </p>
         </div>
 
@@ -1364,8 +1454,28 @@
 
     <!-- ── 01 왜 필요한가요? ── -->
     <section class="wrap sec-gap" id="why">
-      <span class="kicker">01 — 왜 필요한가요?</span>
-      <h2 class="sec-title">귀로 들어서는<br />더 이상 구별할 수 없습니다</h2>
+      <div class="why-head">
+        <!-- PC에서는 한 덩어리, 모바일에서는 display:contents로 풀어 order를 준다 -->
+        <div class="why-copy">
+          <span class="kicker">01 — 왜 필요한가요?</span>
+          <h2 class="sec-title">귀로 들어서는<br />더 이상 구별할 수 없습니다</h2>
+          <p class="why-desc">
+            <strong>딥보이스(Deep Voice)</strong>는 AI가 특정 사람의 목소리 톤과
+            억양, 발음 습관까지 학습해 복제하는 기술입니다. 그 사람이 하지 않은
+            말도, <strong>실제로 말한 것처럼</strong> 자연스럽게 만들어 냅니다.
+          </p>
+        </div>
+
+        <div class="why-art" data-reveal>
+          <span class="why-glow" aria-hidden="true"></span>
+          <img
+            src="assets/mascot-phishing.webp"
+            width="680"
+            height="813"
+            alt="후드를 쓴 채 전화를 거는 미어캣 — 딥보이스 보이스피싱"
+          />
+        </div>
+      </div>
 
       <div class="stat-grid" data-reveal>
         <div class="stat">
@@ -1411,7 +1521,12 @@
             <div class="step-art">
               <div class="step-badge"><b>1</b><span>STEP 1 · 녹음</span></div>
               <div class="phone phone-step">
-                <img src="assets/app-record.webp" width="474" height="928" alt="STEP 1 · 목소리 녹음 화면" />
+                <img
+                  src="assets/app-record.webp"
+                  width="474"
+                  height="928"
+                  alt="STEP 1 · 목소리 녹음 화면"
+                />
               </div>
             </div>
             <div class="step-copy">
@@ -1430,7 +1545,12 @@
                 <b>2</b><span>STEP 2 · 성문 생성</span>
               </div>
               <div class="phone phone-step">
-                <img src="assets/app-voiceprint.webp" width="474" height="928" alt="STEP 2 · 성문 생성 화면" />
+                <img
+                  src="assets/app-voiceprint.webp"
+                  width="474"
+                  height="928"
+                  alt="STEP 2 · 성문 생성 화면"
+                />
               </div>
             </div>
             <div class="step-copy">
@@ -1449,7 +1569,12 @@
                 <b>3</b><span>STEP 3 · 가족 초대</span>
               </div>
               <div class="phone phone-step">
-                <img src="assets/app-welcome.webp" width="474" height="928" alt="STEP 3 · 가족 초대 화면" />
+                <img
+                  src="assets/app-welcome.webp"
+                  width="474"
+                  height="928"
+                  alt="STEP 3 · 가족 초대 화면"
+                />
               </div>
             </div>
             <div class="step-copy">
@@ -1481,7 +1606,12 @@
         <div class="verdicts">
           <div class="verdict v-safe" tabindex="0">
             <div class="phone">
-              <img src="assets/app-safe.webp" width="474" height="928" alt="안전 판정 화면" />
+              <img
+                src="assets/app-safe.webp"
+                width="474"
+                height="928"
+                alt="안전 판정 화면"
+              />
             </div>
             <div class="verdict-copy">
               <span class="verdict-pill">SAFE · 안심</span>
@@ -1496,7 +1626,12 @@
 
           <div class="verdict v-warn is-on" tabindex="0">
             <div class="phone">
-              <img src="assets/app-warn.webp" width="474" height="928" alt="주의 판정 화면" />
+              <img
+                src="assets/app-warn.webp"
+                width="474"
+                height="928"
+                alt="주의 판정 화면"
+              />
             </div>
             <div class="verdict-copy">
               <span class="verdict-pill">CHECK · 주의</span>
@@ -1511,7 +1646,12 @@
 
           <div class="verdict v-danger" tabindex="0">
             <div class="phone">
-              <img src="assets/app-danger.webp" width="474" height="928" alt="위험 판정 화면" />
+              <img
+                src="assets/app-danger.webp"
+                width="474"
+                height="928"
+                alt="위험 판정 화면"
+              />
             </div>
             <div class="verdict-copy">
               <span class="verdict-pill">DANGER · 위험</span>
@@ -1545,10 +1685,20 @@
         <div class="share">
           <div class="share-art">
             <div class="phone">
-              <img src="assets/app-alert-family.webp" width="474" height="928" alt="가족에게 위험 알리기 화면" />
+              <img
+                src="assets/app-alert-family.webp"
+                width="474"
+                height="928"
+                alt="가족에게 위험 알리기 화면"
+              />
             </div>
             <div class="phone">
-              <img src="assets/app-block.webp" width="474" height="928" alt="가족 차단 번호 화면" />
+              <img
+                src="assets/app-block.webp"
+                width="474"
+                height="928"
+                alt="가족 차단 번호 화면"
+              />
             </div>
           </div>
           <div class="share-list">
@@ -1626,7 +1776,12 @@
     <!-- ── CTA ── -->
     <section class="cta" id="start">
       <div class="wrap cta-shell">
-        <img src="assets/mascot-splash.webp" width="200" height="200" alt="IsFam 미어캣" />
+        <img
+          src="assets/mascot-splash.webp"
+          width="200"
+          height="200"
+          alt="IsFam 미어캣"
+        />
         <h2>소중한 가족의 통화를<br />지키는 가장 빠른 방법</h2>
         <p>
           내 목소리를 먼저 등록하고 가족을 초대해 보세요. 링크 한 번으로 쉽게
@@ -1890,7 +2045,10 @@
       function fallbackProgress(id) {
         const t0 = Date.now();
         timer = setInterval(() => {
-          quiz.prog[id] = Math.min(100, ((Date.now() - t0) / FALLBACK_MS) * 100);
+          quiz.prog[id] = Math.min(
+            100,
+            ((Date.now() - t0) / FALLBACK_MS) * 100,
+          );
           if (quiz.prog[id] >= 100) {
             clearInterval(timer);
             quiz.playing = null;
