@@ -1,0 +1,115 @@
+/* ── 01 필요성 ── */
+.sec-gap {
+  margin-top: var(--gap-sec);
+}
+.why-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(24px, 4vw, 64px);
+}
+.why-copy {
+  flex: 1 1 500px;
+}
+.why-desc {
+  margin-top: 18px;
+  font-size: clamp(17px, 1.5vw, 19.5px);
+  font-weight: 500;
+  line-height: 1.9;
+  color: var(--muted);
+  max-width: 58ch;
+}
+.why-desc strong {
+  font-weight: 800;
+  color: var(--ink);
+  font-size: 1.08em;
+  /* 본문보다 큰 글자가 줄 높이를 밀지 않도록 문단의 strut 안에 가둔다 */
+  line-height: 1;
+}
+.why-art {
+  position: relative;
+  flex: none;
+  width: clamp(200px, 22vw, 290px);
+  /* 오른쪽 끝에 붙지 않게 안쪽으로 당긴다 */
+  margin-right: clamp(0px, 4vw, 64px);
+}
+.why-art img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* 마스코트 뒤 원형 조명 */
+.why-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 128%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(255, 176, 32, 0.34) 0%,
+    rgba(255, 176, 32, 0.16) 38%,
+    rgba(243, 239, 232, 0) 70%
+  );
+  filter: blur(6px);
+}
+.stat-grid {
+  margin-top: clamp(56px, 8vh, 88px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 20px clamp(20px, 3vw, 32px);
+}
+.stat {
+  background: #fff;
+  border: 1px solid rgba(146, 120, 86, 0.1);
+  border-radius: 22px;
+  padding: 24px 24px 26px;
+  box-shadow: 0 14px 36px rgba(92, 66, 28, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.stat:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 48px rgba(92, 66, 28, 0.12);
+}
+.stat-cap {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--muted2);
+}
+.stat-fig {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 14px;
+}
+.stat-fig b {
+  font-size: clamp(48px, 5vw, 66px);
+  font-weight: 800;
+  line-height: 0.92;
+}
+.stat-fig.stat-copy b {
+  font-size: clamp(26px, 2.5vw, 36px);
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+}
+.stat-fig span {
+  font-size: 17px;
+  font-weight: 700;
+}
+.stat-accent b,
+.stat-accent span {
+  color: var(--orange);
+}
+.stat-note {
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--muted2);
+  margin-top: 14px;
+}

@@ -1,0 +1,101 @@
+/* ── 판정 카드 3종 ── */
+.verdicts {
+  margin-top: clamp(72px, 11vh, 124px);
+  padding: clamp(36px, 5vh, 64px) 0 clamp(12px, 2vh, 24px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  perspective: 1800px;
+}
+.verdict {
+  flex: 0 0 clamp(235px, 24vw, 314px);
+  position: relative;
+  outline: none;
+  cursor: pointer;
+  transform-origin: center bottom;
+  z-index: 1;
+  opacity: 0.78;
+  filter: blur(1.4px) saturate(0.88);
+  /* --tilt: 선택된 카드 쪽으로 기울도록 JS가 카드마다 지정한다 */
+  transform: translateY(28px) scale(0.86) rotateY(var(--tilt, -8deg));
+  transition: transform 0.6s var(--ease), opacity 0.5s ease,
+    filter 0.5s ease;
+}
+.verdict.is-on {
+  z-index: 5;
+  opacity: 1;
+  filter: blur(0) saturate(1);
+  transform: translateY(-10px) scale(1.08) rotateY(0deg);
+}
+.verdict-copy {
+  margin-top: 24px;
+  padding: 0 10px;
+  opacity: 0.68;
+  transform: translateY(6px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.verdict.is-on .verdict-copy {
+  opacity: 1;
+  transform: none;
+}
+.verdict-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+.verdict-pill::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.verdict-copy h4 {
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.38;
+  letter-spacing: -0.03em;
+  margin-top: 14px;
+}
+.verdict-copy p {
+  font-size: 15.5px;
+  font-weight: 500;
+  line-height: 1.82;
+  color: var(--muted);
+  margin-top: 10px;
+}
+.verdict-score {
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.v-safe .verdict-pill {
+  background: #e8f3ec;
+  color: var(--safe);
+}
+.v-safe .verdict-score {
+  color: var(--safe);
+}
+.v-warn .verdict-pill {
+  background: #fcefd6;
+  color: var(--warn);
+}
+.v-warn .verdict-score {
+  color: var(--warn);
+}
+.v-danger .verdict-pill {
+  background: #fdecec;
+  color: var(--danger);
+}
+.v-danger .verdict-score {
+  color: var(--danger);
+}
+

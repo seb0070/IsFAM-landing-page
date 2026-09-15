@@ -1,0 +1,114 @@
+<!-- ── 00 딥보이스 체험 ── -->
+<section class="sec-dark" id="test">
+  <div class="wrap quiz-shell">
+    <div class="quiz-head" data-reveal>
+      <span class="kicker">직접 들어보세요</span>
+      <h2>어떤 목소리가<br />진짜 사람일까요?</h2>
+      <p>
+        두 개의 목소리를 듣고 실제 사람의 목소리라고 생각되는 쪽을
+        선택해보세요. AI 목소리가 얼마나 자연스럽게 들릴 수 있는지 직접
+        경험할 수 있습니다.
+      </p>
+    </div>
+
+    <p class="quiz-disclaimer">이 테스트는 AI 음성에 대한 이해를 돕기 위한 체험입니다. IsFam의 실제 판별 성능을 의미하지 않습니다.</p>
+
+    <div class="quiz-grid">
+      <div class="quiz-card" data-card="a">
+        <div class="quiz-card-top">
+          <span class="quiz-badge">A</span>
+          <span class="quiz-card-name">음성 A</span>
+          <span class="quiz-state" data-state="a">듣기 전</span>
+        </div>
+        <button
+          class="quiz-shot"
+          type="button"
+          data-play="a"
+          aria-label="음성 A 재생"
+        >
+          <img
+            src="assets/test-calling.webp"
+            width="399"
+            height="846"
+            alt="음성 A · 010-1234-5678 통화 화면"
+          />
+          <span class="quiz-veil" aria-hidden="true">
+            <span class="quiz-veil-icon">▶</span>
+            <span class="quiz-veil-hint">눌러서 듣기</span>
+          </span>
+        </button>
+        <div class="wave">
+          <div class="wave-row wave-base" data-wave="a"></div>
+          <div class="wave-row wave-fill" data-wave="a"></div>
+        </div>
+        <p class="quiz-desc" data-desc="a"></p>
+        <button class="btn-ghost quiz-choose" type="button" data-choose="a">
+          A 선택
+        </button>
+      </div>
+
+      <div class="quiz-card" data-card="b">
+        <div class="quiz-card-top">
+          <span class="quiz-badge">B</span>
+          <span class="quiz-card-name">음성 B</span>
+          <span class="quiz-state" data-state="b">듣기 전</span>
+        </div>
+        <button
+          class="quiz-shot"
+          type="button"
+          data-play="b"
+          aria-label="음성 B 재생"
+        >
+          <img
+            src="assets/test-calling.webp"
+            width="399"
+            height="846"
+            alt="음성 B · 010-1234-5678 통화 화면"
+          />
+          <span class="quiz-veil" aria-hidden="true">
+            <span class="quiz-veil-icon">▶</span>
+            <span class="quiz-veil-hint">눌러서 듣기</span>
+          </span>
+        </button>
+        <div class="wave">
+          <div class="wave-row wave-base" data-wave="b"></div>
+          <div class="wave-row wave-fill" data-wave="b"></div>
+        </div>
+        <p class="quiz-desc" data-desc="b"></p>
+        <button class="btn-ghost quiz-choose" type="button" data-choose="b">
+          B 선택
+        </button>
+      </div>
+    </div>
+
+    <div class="quiz-step" id="quiz-age" hidden>
+      <h3>결과를 보기 전에, 연령대를 선택해 주세요</h3>
+      <p>같은 연령대의 구별 실패율과 비교해 보여드릴게요.</p>
+      <div class="age-row">
+        <button class="btn-ghost" type="button" data-age="1020">
+          10 · 20세대
+        </button>
+        <button class="btn-ghost" type="button" data-age="3040">
+          30 · 40세대
+        </button>
+        <button class="btn-ghost" type="button" data-age="5060">
+          50 · 60세대
+        </button>
+        <button class="btn-ghost" type="button" data-age="70">
+          70대 이상
+        </button>
+      </div>
+    </div>
+
+    <div class="quiz-step" id="quiz-result" hidden>
+      <span class="kicker" data-result="kicker"></span>
+      <div class="result-rate" data-result="rate"></div>
+      <div class="result-cap" data-result="cap"></div>
+      <h3 class="result-title" data-result="title"></h3>
+      <p class="result-body" data-result="body"></p>
+      <div class="result-cta">
+        <a class="btn-primary" href="#how">IsFam 작동 방식 보기</a>
+      </div>
+    </div>
+  </div>
+</section>

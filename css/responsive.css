@@ -1,0 +1,72 @@
+@media (max-width: 860px) {
+  .step,
+  .step-ltr {
+    flex-direction: column !important;
+    text-align: center;
+    margin-inline: auto;
+  }
+  .step-copy,
+  .step-copy p {
+    margin-inline: auto !important;
+    max-width: none;
+  }
+  .nav-link {
+    display: none;
+  }
+  /* 겹쳐 놓은 카드 연출은 모바일에서 해제하고 세로로 쌓는다 */
+  .verdict,
+  .verdict:first-child,
+  .verdict.is-on {
+    filter: none;
+    opacity: 1;
+    transform: none;
+  }
+  .verdict-copy {
+    opacity: 1;
+    transform: none;
+  }
+  /* 좌우 배치를 풀고 제목 → 마스코트 → 설명문 순으로 세운다.
+     .why-copy를 display:contents로 풀어야 설명문이 마스코트 뒤로 갈 수 있다 */
+  .why-head {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .why-copy {
+    display: contents;
+  }
+  .why-head .sec-title {
+    max-width: none;
+  }
+  .why-art {
+    order: 2;
+    margin-top: 18px;
+    /* 세로 배치에서는 가운데 정렬이므로 안쪽 당김을 푼다 */
+    margin-right: 0;
+  }
+  .why-desc {
+    order: 3;
+    margin-top: 18px;
+    max-width: none;
+  }
+}
+@media (max-width: 520px) {
+  .nav .btn-primary {
+    font-size: 14px;
+    padding: 0 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+

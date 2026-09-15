@@ -1,0 +1,174 @@
+<!-- ── 02 작동 방식 ── -->
+<section class="wrap sec-gap story-section" id="how" data-story="section">
+  <span class="kicker">어떻게 작동하나요?</span>
+  <h2 class="sec-title">가족을 등록하면<br />확인은 더 간단해집니다</h2>
+
+  <div class="group group-1" data-reveal data-story="group">
+    <div class="group-title">
+      <span class="group-no">01</span>
+      <div>
+        <div class="group-tag">SET UP · 가족 등록</div>
+        <h3>처음 한 번 등록하고<br />필요할 때 비교합니다</h3>
+      </div>
+    </div>
+
+    <div class="setup-story" data-screen-story data-step="0">
+      <div class="setup-visual">
+        <div class="setup-device phone">
+          <img class="setup-screen is-active" data-screen="0" src="assets/app-record.webp" width="474" height="928" alt="목소리 녹음 화면" />
+          <img class="setup-screen" data-screen="1" src="assets/app-voiceprint.webp" width="474" height="928" alt="성문 생성 화면" />
+          <img class="setup-screen" data-screen="2" src="assets/app-welcome.webp" width="474" height="928" alt="가족 초대 화면" />
+        </div>
+        <div class="setup-progress" aria-hidden="true"><i></i><i></i><i></i></div>
+      </div>
+
+      <div class="setup-copy-rail">
+        <article class="setup-copy is-active" data-screen-copy="0">
+          <span>STEP 1 · 가족 등록</span>
+          <h4>가족 등록</h4>
+          <p>보호할 가족을 연결합니다. 복잡한 설정 없이 가족 등록부터 시작합니다.</p>
+        </article>
+        <article class="setup-copy" data-screen-copy="1">
+          <span>STEP 2 · 목소리 등록</span>
+          <h4>목소리 등록</h4>
+          <p>가족의 음성을 미리 등록합니다. 가족 Voiceprint는 안전하게 보호됩니다.</p>
+        </article>
+        <article class="setup-copy" data-screen-copy="2">
+          <span>STEP 3 · 통화 선택</span>
+          <h4>통화 선택</h4>
+          <p>확인이 필요한 통화를 선택하면 등록된 가족과 현재 음성의 비교를 시작합니다.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="group" data-reveal data-delay="1" data-story="group">
+    <div class="group-head">
+      <div class="group-title">
+        <span class="group-no">02</span>
+        <div>
+          <div class="group-tag">ANALYZE · 결과 확인</div>
+          <h3>결과를 보고<br />바로 이해할 수 있도록</h3>
+        </div>
+      </div>
+      <p>
+        복잡한 AI 점수보다 사용자가 바로 이해할 수 있는 결과를 제공합니다.
+        결과는 SAFE / CAUTION / DANGER의 3단계로 구분됩니다.
+      </p>
+    </div>
+
+    <div class="verdicts">
+      <div class="verdict v-safe" tabindex="0">
+        <div class="phone">
+          <img
+            src="assets/app-safe.webp"
+            width="474"
+            height="928"
+            alt="안전 판정 화면"
+          />
+        </div>
+        <div class="verdict-copy">
+          <span class="verdict-pill">SAFE · 안전</span>
+          <h4>등록된 가족과<br />높은 유사도</h4>
+          <p>
+            등록된 가족과 높은 유사도를 보이며 AI 음성 의심 신호가 낮은 상태입니다.
+          </p>
+          <div class="verdict-score">통화를 계속 확인하세요</div>
+        </div>
+      </div>
+
+      <div class="verdict v-warn is-on" tabindex="0">
+        <div class="phone">
+          <img
+            src="assets/app-warn.webp"
+            width="474"
+            height="928"
+            alt="주의 판정 화면"
+          />
+        </div>
+        <div class="verdict-copy">
+          <span class="verdict-pill">CAUTION · 주의</span>
+          <h4>추가 확인이<br />필요합니다</h4>
+          <p>
+            음질이 낮거나 판단이 명확하지 않은 상태입니다.
+          </p>
+          <div class="verdict-score">가족에게 다시 확인해보세요</div>
+        </div>
+      </div>
+
+      <div class="verdict v-danger" tabindex="0">
+        <div class="phone">
+          <img
+            src="assets/app-danger.webp"
+            width="474"
+            height="928"
+            alt="위험 판정 화면"
+          />
+        </div>
+        <div class="verdict-copy">
+          <span class="verdict-pill">DANGER · 위험</span>
+          <h4>가족과 다르거나<br />AI 음성 의심</h4>
+          <p>
+            가족과 일치하지 않거나 AI 음성 의심 신호가 높은 상태입니다.
+          </p>
+          <div class="verdict-score">통화를 종료하고 추가 확인하세요</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="group" id="family" data-reveal data-delay="2" data-story="group">
+    <div class="group-head">
+      <div class="group-title">
+        <span class="group-no">03</span>
+        <div>
+          <div class="group-tag">FAMILY · 가족 연결</div>
+          <h3>가족이 함께<br />확인할 수 있게</h3>
+        </div>
+      </div>
+      <p>
+        가족 구성원을 연결하고 필요한 보호 정보를 함께 확인할 수 있습니다.
+        한 명이 등록하고 가족이 함께 보호받는 구조를 지향합니다.
+      </p>
+    </div>
+
+    <div class="share">
+      <div class="share-art">
+        <div class="phone">
+          <img
+            src="assets/app-alert-family.webp"
+            width="474"
+            height="928"
+            alt="가족에게 위험 알리기 화면"
+          />
+        </div>
+        <div class="phone">
+          <img
+            src="assets/app-block.webp"
+            width="474"
+            height="928"
+            alt="가족 차단 번호 화면"
+          />
+        </div>
+      </div>
+      <div class="share-list">
+        <div class="share-item">
+          <b>가족 초대</b>
+          <p>링크 또는 초대를 통해 가족 구성원을 연결합니다.</p>
+        </div>
+        <div class="share-item">
+          <b>목소리 등록 확인</b>
+          <p>어떤 가족의 목소리가 등록되어 있는지 쉽게 확인합니다.</p>
+        </div>
+        <div class="share-item">
+          <b>보호 상태 확인</b>
+          <p>가족별 등록 상태와 보호 여부를 확인합니다.</p>
+        </div>
+        <div class="share-item">
+          <b>위험 상황 공유</b>
+          <p>필요한 경우 가족이 함께 상황을 확인할 수 있습니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

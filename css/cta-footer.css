@@ -1,0 +1,131 @@
+/* ── CTA ── */
+.cta {
+  margin-top: var(--gap-sec);
+  background: linear-gradient(150deg, #ffae1c, #f58109);
+  color: #fff;
+}
+.cta-shell {
+  padding-block: clamp(72px, 11vh, 128px);
+  text-align: center;
+}
+.cta .kicker { color: rgba(255, 255, 255, 0.82); }
+.cta img {
+  width: 104px;
+  height: 104px;
+  border-radius: 22px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  animation: isFloat 4.4s ease-in-out infinite;
+}
+.cta h2 {
+  font-size: clamp(34px, 4.4vw, 64px);
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+  margin: 48px auto 0;
+  max-width: 22ch;
+}
+.cta p {
+  font-size: 19px;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 38ch;
+  margin: 24px auto 0;
+}
+.btn-invert {
+  display: inline-flex;
+  align-items: center;
+  height: 58px;
+  padding: 0 36px;
+  border-radius: 18px;
+  background: #fffcf6;
+  box-shadow: 0 14px 32px rgba(120, 66, 12, 0.26);
+  color: #b4520a;
+  font-size: 17px;
+  font-weight: 700;
+  margin-top: 36px;
+  white-space: nowrap;
+}
+.btn-invert:hover {
+  color: #b4520a;
+}
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 36px;
+}
+.cta-actions .btn-invert { margin-top: 0; }
+.cta-actions .btn-ghost {
+  height: 58px;
+  padding-inline: 30px;
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 32px;
+  font-size: 13.5px;
+  color: var(--muted2);
+}
+.foot-brand {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.03em;
+}
+.footer-brand-block { display: grid; gap: 5px; }
+.footer-menu { display: flex; flex-wrap: wrap; gap: 18px; }
+.footer-menu a { color: var(--muted2); }
+.footer-menu a:hover { color: var(--ink); }
+
+@keyframes isPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.75);
+  }
+}
+@keyframes isFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+@keyframes isUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes isPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  60% {
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

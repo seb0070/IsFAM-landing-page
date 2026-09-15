@@ -1,0 +1,202 @@
+.hero-shell {
+  isolation: isolate;
+}
+
+.hero-glow {
+  display: block !important;
+  position: absolute;
+  inset: 48px 0 0;
+  height: auto;
+  opacity: 0.5;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.shader-gradient-canvas,
+.shader-gradient-canvas > div,
+.shader-gradient-canvas canvas,
+.r3f-accent-canvas {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.shader-gradient-canvas {
+  filter: saturate(1.12) contrast(1.01);
+  -webkit-mask-image: radial-gradient(circle at 70% 45%, #000 0 22%, rgba(0,0,0,.72) 40%, transparent 72%);
+  mask-image: radial-gradient(circle at 70% 45%, #000 0 22%, rgba(0,0,0,.72) 40%, transparent 72%);
+}
+
+.r3f-accent-canvas {
+  opacity: 0.16;
+  mix-blend-mode: normal;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 48px 0 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 72% 48%, transparent 0 30%, rgba(255,255,255,.12) 52%, rgba(255,255,255,.78) 82%),
+    linear-gradient(90deg, #fff 0%, rgba(255,255,255,.88) 40%, rgba(255,255,255,.18) 72%, rgba(255,255,255,.56) 100%);
+  pointer-events: none;
+}
+
+.nav {
+  overflow: visible;
+}
+
+.liquid-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 108px;
+  height: 30px;
+}
+
+.liquid-brand > div:first-child {
+  flex: 0 0 28px;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+.liquid-brand strong {
+  color: #1d1d1f;
+  font-size: 15px;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+}
+
+#liquid-logo-root {
+  flex: 0 0 108px;
+  width: 108px;
+  overflow: visible;
+}
+
+.liquid-brand-fallback {
+  display: flex;
+  align-items: center;
+  color: #1d1d1f;
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+
+.no-webgl .hero-glow {
+  background:
+    radial-gradient(circle at 72% 42%, rgba(255, 136, 38, .3), transparent 36%),
+    radial-gradient(circle at 54% 80%, rgba(255, 207, 156, .28), transparent 42%);
+}
+
+.glass-action {
+  display: inline-flex !important;
+  cursor: pointer;
+  color: #fff;
+  background: transparent !important;
+  border: 0;
+  box-shadow: none;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.glass-action:hover {
+  transform: translateY(-1px);
+}
+
+.glass-action .glass {
+  background: rgba(235, 91, 0, 0.78);
+  border: 1px solid rgba(255,255,255,.55);
+  box-shadow: 0 12px 32px rgba(196, 76, 0, 0.2), inset 0 1px rgba(255,255,255,.5) !important;
+}
+
+.glass-action:hover .glass {
+  background: rgba(245, 99, 0, 0.9);
+}
+
+.glass-action--compact {
+  min-height: 30px;
+  font-size: 12px;
+}
+
+.glass-action--compact .glass {
+  box-shadow: 0 8px 20px rgba(196, 76, 0, 0.14), inset 0 1px rgba(255,255,255,.48) !important;
+}
+
+#nav-glass-root,
+#hero-glass-root {
+  position: relative;
+}
+
+#nav-glass-root {
+  width: 143px;
+  height: 38px;
+}
+
+#hero-glass-root {
+  display: inline-block;
+  width: 238px;
+  height: 45px;
+}
+
+#nav-glass-root > div,
+#hero-glass-root > div {
+  position: absolute !important;
+  inset: 50% auto auto 50%;
+}
+
+.phone-hero {
+  background: transparent;
+  box-shadow: none;
+}
+
+.phone-hero img {
+  filter: drop-shadow(0 34px 40px rgba(74, 38, 10, 0.25));
+}
+
+.chip {
+  background: rgba(255,255,255,.52) !important;
+  border: 1px solid rgba(255,255,255,.72) !important;
+  backdrop-filter: blur(18px) saturate(135%);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+}
+
+@media (max-width: 700px) {
+  .hero-glow { opacity: .38; }
+  .hero::before { background: linear-gradient(180deg, rgba(255,255,255,.56), rgba(255,255,255,.22)); }
+  .shader-gradient-canvas { filter: saturate(.9) contrast(1.02); }
+
+  #nav-glass-root {
+    display: none;
+  }
+
+  .hero > div:first-child {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .hero h1 {
+    max-width: 100%;
+    font-size: clamp(39px, 11.2vw, 44px);
+    line-height: 1.02;
+  }
+
+  .hero h1 span {
+    display: block;
+  }
+
+  .hero-sub {
+    max-width: 100%;
+    font-size: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-action { transition: none; }
+}

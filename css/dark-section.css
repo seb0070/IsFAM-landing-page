@@ -1,0 +1,10 @@
+/* ── 어두운 섹션 공통 ── */
+.sec-dark {
+  margin-top: var(--gap-sec);
+  background: var(--dark);
+  color: var(--on-dark);
+}
+.sec-dark .kicker {
+  color: var(--gold);
+}
+
