@@ -1,11 +1,13 @@
 import { MIN_SAMPLE, saveResult } from "./supabase.js";
 
 // ── 00 딥보이스 체험 ──
+// rate 는 Supabase 표본이 MIN_SAMPLE 에 못 미칠 때 보여 주는 기준값이다.
+// 이 값이 없으면 결과 자리에 퍼센트를 띄울 수가 없다.
 const AGE_STATS = {
-  1020: { label: "10 · 20세대" },
-  3040: { label: "30 · 40세대" },
-  5060: { label: "50 · 60세대" },
-  70: { label: "70대 이상" },
+  1020: { label: "10 · 20세대", rate: 61 },
+  3040: { label: "30 · 40세대", rate: 68 },
+  5060: { label: "50 · 60세대", rate: 82 },
+  70: { label: "70대 이상", rate: 89 },
 };
 // A = 진짜 가족 목소리, B = AI 복제 딥보이스
 const VOICE_SRC = {
@@ -143,7 +145,7 @@ function fallbackProgress(id) {
 }
 
 // rate: 표시할 실패율(%), sample: 실제 응답 수(없으면 기준값으로 간주)
-function renderResult(ageKey, rate = null, sample = null) {
+function renderResult(ageKey, rate, sample) {
   const st = AGE_STATS[ageKey] || AGE_STATS[5060];
   const ok = quiz.choice === "a";
   const color = ok ? "var(--safe-lt)" : "var(--danger-lt)";
@@ -155,20 +157,25 @@ function renderResult(ageKey, rate = null, sample = null) {
     "kicker",
     ok ? "정답 · 진짜 가족은 음성 A" : "오답 · 진짜 가족은 음성 A",
   );
-  set("rate", rate === null ? (ok ? "정답" : "다시 확인") : `${rate}%`);
+  // 큰 자리는 언제나 퍼센트다. 맞혔는지 여부는 위 kicker 가 말한다
+  set("rate", `${rate}%`);
   set(
     "cap",
-    sample && rate !== null
+    sample
       ? `${st.label} 구별 실패율 · 참여 ${sample}명`
-      : `${st.label} 음성 테스트 결과`,
+      : `${st.label} 구별 실패율`,
   );
   set(
     "title",
-    "생각보다 쉽지 않았나요?",
+    ok
+      ? "맞혔어요. 음성 B가 딥보이스입니다"
+      : "틀렸어요. 딥보이스는 음성 B였습니다",
   );
   set(
     "body",
-    "목소리가 자연스럽게 들린다는 것과 실제 사람이라는 것은 같은 의미가 아닐 수 있습니다.",
+    ok
+      ? `한 번 맞혔더라도 안심할 수는 없습니다. 같은 연령대 참여자 중 ${rate}%는 두 음성을 구별하지 못했고, 실제 통화에서는 상대가 가족의 이름과 상황까지 말합니다.`
+      : "대부분의 사람이 딥보이스를 구별하지 못합니다. 사람의 청각은 미세한 주파수 패턴 차이를 듣도록 설계되지 않았습니다.",
   );
 
   document.querySelector('[data-result="kicker"]').style.color = color;
@@ -179,7 +186,7 @@ function showResult(ageKey) {
   const st = AGE_STATS[ageKey] || AGE_STATS[5060];
 
   // 기준값으로 즉시 보여 주고, 수집 결과가 오면 실제 수치로 교체한다
-  renderResult(ageKey);
+  renderResult(ageKey, st.rate, null);
   quiz.step = "result";
   render();
 
