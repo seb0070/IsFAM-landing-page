@@ -2,3 +2,5 @@ node_modules/
 dist/
 .DS_Store
 npm-debug.log*
+# 작업용 카피 비교 메모 (소스 아님)
+카피-변경내역.txt
