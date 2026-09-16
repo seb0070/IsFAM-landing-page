@@ -66,9 +66,9 @@
   margin-top: 14px;
 }
 .verdict-copy p {
-  font-size: 15.5px;
+  font-size: 15px;
   font-weight: 500;
-  line-height: 1.82;
+  line-height: 1.7;
   color: var(--muted);
   margin-top: 10px;
 }
@@ -98,4 +98,3 @@
 .v-danger .verdict-score {
   color: var(--danger);
 }
-

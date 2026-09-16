@@ -1,15 +1,4 @@
 @media (max-width: 860px) {
-  .step,
-  .step-ltr {
-    flex-direction: column !important;
-    text-align: center;
-    margin-inline: auto;
-  }
-  .step-copy,
-  .step-copy p {
-    margin-inline: auto !important;
-    max-width: none;
-  }
   .nav-link {
     display: none;
   }
@@ -69,4 +58,3 @@
     transform: none;
   }
 }
-

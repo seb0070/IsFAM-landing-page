@@ -7,10 +7,19 @@
   position: absolute;
   inset: 48px 0 0;
   height: auto;
-  opacity: 0.5;
+  /* 0.5 였다. .hero-shell 바탕 + 이 층 + ::before 까지 주황이 네 겹
+     쌓여 탁하고 과했다. ::before 를 지우고 이 층도 한 겹만 남긴다 */
+  opacity: 0.34;
   overflow: hidden;
   z-index: -1;
   pointer-events: none;
+  /* 기본은 CSS 그라디언트. PC 에서 WebGL 캔버스가 이 위를 덮는다 */
+  background: radial-gradient(
+    ellipse 48% 52% at 72% 34%,
+    rgba(255, 168, 70, 0.22) 0%,
+    rgba(255, 206, 158, 0.1) 46%,
+    transparent 76%
+  );
 }
 
 .shader-gradient-canvas,
@@ -34,162 +43,22 @@
   mix-blend-mode: normal;
 }
 
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 48px 0 0;
-  z-index: -1;
-  background:
-    radial-gradient(circle at 72% 48%, transparent 0 30%, rgba(255,255,255,.12) 52%, rgba(255,255,255,.78) 82%),
-    linear-gradient(90deg, #fff 0%, rgba(255,255,255,.88) 40%, rgba(255,255,255,.18) 72%, rgba(255,255,255,.56) 100%);
-  pointer-events: none;
-}
-
 .nav {
   overflow: visible;
 }
 
-.liquid-brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 108px;
-  height: 30px;
+/* 내비 로고: 정적 이미지 + 텍스트 (나머지 규칙은 nav.css / apple-home.css) */
+.nav-brand {
+  color: #151311;
 }
 
-.liquid-brand > div:first-child {
-  flex: 0 0 28px;
-  width: 28px !important;
-  height: 28px !important;
-  border-radius: 9px;
-  overflow: hidden;
+.nav-brand:hover {
+  color: #151311;
 }
 
-.liquid-brand strong {
-  color: #1d1d1f;
-  font-size: 15px;
-  letter-spacing: -0.025em;
-  white-space: nowrap;
-}
-
-#liquid-logo-root {
-  flex: 0 0 108px;
-  width: 108px;
-  overflow: visible;
-}
-
-.liquid-brand-fallback {
-  display: flex;
-  align-items: center;
-  color: #1d1d1f;
-  font-size: 15px;
-  font-weight: 750;
-  letter-spacing: -0.025em;
-}
-
-.no-webgl .hero-glow {
-  background:
-    radial-gradient(circle at 72% 42%, rgba(255, 136, 38, .3), transparent 36%),
-    radial-gradient(circle at 54% 80%, rgba(255, 207, 156, .28), transparent 42%);
-}
-
-.glass-action {
-  display: inline-flex !important;
-  cursor: pointer;
-  color: #fff;
-  background: transparent !important;
-  border: 0;
-  box-shadow: none;
-  font-size: 16px;
-  font-weight: 700;
-  white-space: nowrap;
-  transition: transform .2s ease, background .2s ease;
-}
-
-.glass-action:hover {
-  transform: translateY(-1px);
-}
-
-.glass-action .glass {
-  background: rgba(235, 91, 0, 0.78);
-  border: 1px solid rgba(255,255,255,.55);
-  box-shadow: 0 12px 32px rgba(196, 76, 0, 0.2), inset 0 1px rgba(255,255,255,.5) !important;
-}
-
-.glass-action:hover .glass {
-  background: rgba(245, 99, 0, 0.9);
-}
-
-.glass-action--compact {
-  min-height: 30px;
-  font-size: 12px;
-}
-
-.glass-action--compact .glass {
-  box-shadow: 0 8px 20px rgba(196, 76, 0, 0.14), inset 0 1px rgba(255,255,255,.48) !important;
-}
-
-#nav-glass-root,
-#hero-glass-root {
-  position: relative;
-}
-
-#nav-glass-root {
-  width: 143px;
-  height: 38px;
-}
-
-#hero-glass-root {
-  display: inline-block;
-  width: 238px;
-  height: 45px;
-}
-
-#nav-glass-root > div,
-#hero-glass-root > div {
-  position: absolute !important;
-  inset: 50% auto auto 50%;
-}
-
-.phone-hero {
-  background: transparent;
-  box-shadow: none;
-}
-
-.phone-hero img {
-  filter: drop-shadow(0 34px 40px rgba(74, 38, 10, 0.25));
-}
-
-.chip {
-  background: rgba(255,255,255,.52) !important;
-  border: 1px solid rgba(255,255,255,.72) !important;
-  backdrop-filter: blur(18px) saturate(135%);
-  -webkit-backdrop-filter: blur(18px) saturate(135%);
-}
-
-@media (max-width: 700px) {
+@media (max-width: 860px) {
   .hero-glow { opacity: .38; }
-  .hero::before { background: linear-gradient(180deg, rgba(255,255,255,.56), rgba(255,255,255,.22)); }
   .shader-gradient-canvas { filter: saturate(.9) contrast(1.02); }
-
-  #nav-glass-root {
-    display: none;
-  }
-
-  .hero > div:first-child {
-    min-width: 0;
-    width: 100%;
-  }
-
-  .hero h1 {
-    max-width: 100%;
-    font-size: clamp(39px, 11.2vw, 44px);
-    line-height: 1.02;
-  }
-
-  .hero h1 span {
-    display: block;
-  }
 
   .hero-sub {
     max-width: 100%;
@@ -197,6 +66,3 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .glass-action { transition: none; }
-}

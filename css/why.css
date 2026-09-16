@@ -14,9 +14,9 @@
 }
 .why-desc {
   margin-top: 18px;
-  font-size: clamp(17px, 1.5vw, 19.5px);
+  font-size: clamp(17px, 1.5vw, 19px);
   font-weight: 500;
-  line-height: 1.9;
+  line-height: 1.7;
   color: var(--muted);
   max-width: 58ch;
 }
@@ -89,7 +89,7 @@
   margin-top: 14px;
 }
 .stat-fig b {
-  font-size: clamp(48px, 5vw, 66px);
+  font-size: clamp(32px, 3.6vw, 52px);
   font-weight: 800;
   line-height: 0.92;
 }
@@ -107,9 +107,9 @@
   color: var(--orange);
 }
 .stat-note {
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 1.7;
+  line-height: 1.65;
   color: var(--muted2);
   margin-top: 14px;
 }

@@ -1,26 +1,29 @@
-.content-lead { max-width: 720px; margin-top: 24px; color: var(--muted); font-size: clamp(17px, 1.6vw, 21px); line-height: 1.75; }
-.content-note, .content-caution { max-width: 720px; margin-top: 20px; padding-left: 16px; border-left: 3px solid var(--orange); color: var(--muted); line-height: 1.7; }
-.content-card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 54px; }
-.content-card-grid--three { grid-template-columns: repeat(3, 1fr); }
-.content-card { min-height: 210px; padding: 30px; border: 1px solid rgba(0,0,0,.07); border-radius: 26px; background: rgba(255,255,255,.75); box-shadow: 0 14px 34px rgba(70,45,20,.05); }
-.content-card > span { color: var(--orange); font-size: 12px; font-weight: 800; }
-.content-card h3 { margin-top: 20px; font-size: clamp(22px, 2vw, 28px); line-height: 1.25; letter-spacing: -.035em; }
-.content-card p { margin-top: 14px; color: var(--muted); font-size: 16px; line-height: 1.65; }
-.transparency { padding-block: clamp(100px, 14vh, 160px); background: #f5f5f7; }
-.brand-message { padding-block: clamp(150px, 23vh, 250px); text-align: center; }
-.brand-message h2 { margin-top: 24px; font-size: clamp(50px, 7vw, 98px); line-height: .98; letter-spacing: -.065em; }
-.brand-message h2 span { color: var(--orange); }
-.brand-message p { max-width: 680px; margin: 34px auto 0; color: var(--muted); font-size: 20px; line-height: 1.65; }
-.brand-message small { display: block; margin-top: 20px; color: var(--muted2); }
+.content-lead { max-width: 720px; margin-top: 24px; color: var(--muted); font-size: clamp(17px, 1.6vw, 21px); line-height: 1.65; } .content-caution { max-width: 720px; margin-top: 20px; color: var(--muted); line-height: 1.65; }
+.guidance-sub { margin-top: clamp(56px, 8vh, 88px); font-size: clamp(20px, 2vw, 26px); font-weight: 700; letter-spacing: -.025em; }
+.guidance-sub + .content-card-grid { margin-top: 24px; }
 .faq { padding-bottom: clamp(120px, 18vh, 190px); }
 .faq-list { max-width: 900px; margin-top: 54px; border-top: 1px solid rgba(0,0,0,.12); }
 .faq details { border-bottom: 1px solid rgba(0,0,0,.12); }
 .faq summary { position: relative; padding: 25px 52px 25px 0; cursor: pointer; list-style: none; font-size: 19px; font-weight: 700; }
-.faq summary::after { content: "+"; position: absolute; right: 8px; font-size: 26px; font-weight: 400; }
-.faq details[open] summary::after { content: "−"; }
-.faq details p { max-width: 760px; padding: 0 52px 25px 0; color: var(--muted); line-height: 1.7; }
-@media (max-width: 760px) {
-  .content-card-grid, .content-card-grid--three { grid-template-columns: 1fr; }
-  .content-card { min-height: 0; }
-  .brand-message h2 { font-size: clamp(43px, 12vw, 62px); }
+/* 사파리는 list-style 만으로는 기본 삼각형을 숨기지 않는다 */
+.faq summary::-webkit-details-marker { display: none; }
+/* 닫힘: 오른쪽을 가리키는 꺽쇠. 정사각형의 오른쪽·아래 테두리만 두고 돌린다 */
+.faq summary::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid rgba(21, 19, 17, .42);
+  border-bottom: 2px solid rgba(21, 19, 17, .42);
+  transform: translateY(-50%) rotate(-45deg);
+  transition: transform .28s var(--ease), border-color .2s ease;
 }
+.faq summary:hover::after { border-color: var(--ink); }
+/* 열림: 같은 꺽쇠가 아래를 가리키도록 돌아간다 */
+.faq details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+@media (prefers-reduced-motion: reduce) {
+  .faq summary::after { transition: border-color .2s ease; }
+}
+.faq details p { max-width: 760px; padding: 0 52px 25px 0; color: var(--muted); line-height: 1.65; }
