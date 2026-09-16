@@ -1,20 +1,20 @@
 /* Apple Korea 메인 페이지에서 착안한 풀폭 캠페인형 레이아웃 */
 :root {
-  --cream: #f5f5f7;
+  --cream: #ffffff;
   --cream2: #ffffff;
-  --cream3: #f5f5f7;
-  --ink: #1d1d1f;
-  --muted: #6e6e73;
-  --muted2: #86868b;
-  --line: rgba(0, 0, 0, 0.08);
-  --orange: #f56300;
-  --orange-dk: #d94f00;
-  --orange-tx: #e65700;
-  --amber: #ff9f0a;
-  --tint: #fff4e8;
+  --cream3: #eeece8;
+  --ink: #151311;
+  --muted: #696562;
+  --muted2: #85817c;
+  --line: rgba(120, 112, 100, 0.20);
+  --orange: #f26a0a;
+  --orange-dk: #c74e00;
+  --orange-tx: #c05c05;
+  --amber: #ffb020;
+  --tint: #fbf4ee;
   --dark: #000;
   --dark2: #0b0b0c;
-  --on-dark: #f5f5f7;
+  --on-dark: #f7f5f2;
   --max: 1180px;
   --px: clamp(22px, 5vw, 68px);
   --gap-sec: 0px;
@@ -26,7 +26,7 @@ html {
 }
 
 body {
-  background: #fff;
+  background: var(--cream);
   color: var(--ink);
   font-family: "Pretendard Variable", Pretendard, -apple-system,
     BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
@@ -62,7 +62,7 @@ body {
 .nav-link {
   font-size: 12px;
   font-weight: 500;
-  color: #1d1d1f;
+  color: #151311;
 }
 
 .nav .btn-primary {
@@ -87,7 +87,7 @@ body {
 
 .btn-primary:hover,
 .btn-invert:hover {
-  background: #ff791b;
+  background: #f9801c;
   color: #fff;
 }
 
@@ -103,35 +103,12 @@ body {
   display: none;
 }
 
-.hero {
-  min-height: calc(100svh - 48px);
-  grid-template-columns: minmax(0, 0.95fr) minmax(340px, 0.8fr);
-  gap: clamp(30px, 5vw, 90px);
-  padding-top: clamp(72px, 10vh, 120px);
-  padding-bottom: clamp(70px, 10vh, 120px);
-}
-
-.hero-product-stage .hero-art {
-  justify-self: auto;
-}
-
 .hero-badge,
 .kicker {
   color: var(--orange);
   font-size: 14px;
   font-weight: 700;
   letter-spacing: -0.01em;
-}
-
-.hero h1 {
-  margin-top: 22px;
-  font-size: clamp(58px, 7vw, 96px);
-  line-height: 0.98;
-  letter-spacing: -0.065em;
-}
-
-.hero h1 span {
-  color: var(--orange);
 }
 
 .hero-sub {
@@ -142,40 +119,15 @@ body {
   line-height: 1.55;
 }
 
-.hero-art {
-  justify-self: center;
-}
-
 .phone {
   border-color: #232323;
   background: transparent;
   box-shadow: none;
 }
 
-.phone-hero {
-  width: clamp(270px, 27vw, 365px);
-  transform: none;
-}
-
-.chips {
-  margin-top: 28px;
-  justify-content: center;
-  gap: 7px;
-}
-
-.chip {
-  padding: 8px 12px;
-  border: 0;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-  color: var(--muted);
-  font-size: 11px;
-}
-
 .sec-dark {
   background: #000;
-  color: #f5f5f7;
+  color: var(--cream);
 }
 
 .quiz-shell,
@@ -193,7 +145,7 @@ body {
 .quiz-head h2,
 .sec-title,
 .cta h2 {
-  font-size: clamp(44px, 6vw, 78px);
+  font-size: clamp(27px, 3.6vw, 52px);
   line-height: 1.04;
   letter-spacing: -0.055em;
 }
@@ -201,7 +153,7 @@ body {
 .quiz-head p {
   max-width: 570px;
   margin: 28px auto 0;
-  color: #a1a1a6;
+  color: #a9a096;
   font-size: 19px;
   line-height: 1.55;
 }
@@ -216,7 +168,7 @@ body {
   padding: 24px;
   border: 0;
   border-radius: 28px;
-  background: #1c1c1e;
+  background: #1b1714;
   box-shadow: none;
 }
 
@@ -230,14 +182,6 @@ body {
   border-radius: 999px;
 }
 
-.quiz-step {
-  max-width: 930px;
-  margin-inline: auto;
-  border: 0;
-  border-radius: 28px;
-  background: #1c1c1e;
-}
-
 .sec-gap {
   max-width: none;
   margin: 0;
@@ -245,7 +189,7 @@ body {
 }
 
 #why {
-  background: #f5f5f7;
+  background: var(--cream);
   text-align: center;
 }
 
@@ -282,9 +226,13 @@ body {
 }
 
 .stat-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 18px;
-  margin-top: 58px;
+  margin-top: clamp(40px, 5vh, 56px);
 }
+
+
+
 
 .stat {
   min-height: 280px;
@@ -297,12 +245,12 @@ body {
 }
 
 .stat-fig b {
-  font-size: clamp(54px, 6vw, 78px);
+  font-size: clamp(32px, 3.6vw, 52px);
   letter-spacing: -0.06em;
 }
 
 #how {
-  background: #fff;
+  background: var(--cream);
   text-align: center;
 }
 
@@ -312,7 +260,7 @@ body {
   padding: clamp(36px, 5vw, 68px);
   border: 0;
   border-radius: 34px;
-  background: #f5f5f7;
+  background: var(--surface-card);
 }
 
 .group-title,
@@ -325,13 +273,9 @@ body {
   align-items: flex-start;
 }
 
-.group-no {
-  background: var(--orange);
-  color: #fff;
-}
 
 .group-title h3 {
-  font-size: clamp(34px, 4vw, 52px);
+  font-size: clamp(23px, 2.5vw, 36px);
   line-height: 1.08;
   letter-spacing: -0.045em;
 }
@@ -349,51 +293,9 @@ body {
   font-size: 18px;
 }
 
-.steps {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  margin-top: 55px;
-}
-
-.step,
-.step-ltr {
-  display: flex;
-  flex-direction: column !important;
-  justify-content: flex-start;
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  padding: 34px 22px 30px;
-  border: 0;
-  border-radius: 28px;
-  background: #fff;
-}
-
-.step-art {
-  transform: none;
-}
-
-.phone-step {
-  width: min(250px, 80%);
-}
-
-.step-copy {
-  text-align: center;
-}
-
-.step-copy h4 {
-  font-size: 25px;
-}
-
-.step-copy p {
-  color: var(--muted);
-  line-height: 1.55;
-}
-
 .verdicts {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   margin-top: 55px;
   gap: 16px;
 }
@@ -446,10 +348,11 @@ body {
 }
 
 .tech-shell .sec-title {
-  color: #f5f5f7;
+  color: var(--cream);
 }
 
 .tech-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 18px;
   margin-top: 64px;
 }
@@ -459,17 +362,17 @@ body {
   padding: 36px;
   border: 0;
   border-radius: 28px;
-  background: #1c1c1e;
+  background: #1b1714;
   text-align: left;
 }
 
 .tech h3 {
-  color: #f5f5f7;
+  color: var(--cream);
   font-size: 28px;
 }
 
 .tech p {
-  color: #a1a1a6;
+  color: #a9a096;
 }
 
 .cta {
@@ -478,7 +381,7 @@ body {
   place-items: center;
   padding: 110px 0;
   background: radial-gradient(circle at 50% 42%, #fff 0 18%, transparent 42%),
-    linear-gradient(180deg, #fff4e5, #f5f5f7);
+    linear-gradient(180deg, #fff4e5, var(--cream));
   color: var(--ink);
 }
 
@@ -505,9 +408,9 @@ body {
 footer.wrap {
   max-width: none;
   padding: 30px max(var(--px), calc((100vw - 1024px) / 2));
-  background: #f5f5f7;
+  background: var(--cream);
   border-top-color: rgba(0, 0, 0, 0.08);
-  color: #6e6e73;
+  color: #696562;
   font-size: 12px;
 }
 
@@ -516,26 +419,11 @@ footer.wrap {
     display: none;
   }
 
-  .hero {
-    min-height: auto;
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
   .hero-sub {
     margin-inline: auto;
   }
 
-  .hero-art {
-    margin-top: 30px;
-  }
 
-  .stat-grid,
-  .steps,
-  .verdicts,
-  .tech-grid {
-    grid-template-columns: 1fr;
-  }
 
   .why-copy {
     display: block;
@@ -562,12 +450,7 @@ footer.wrap {
 
 @media (max-width: 520px) {
   .nav .btn-primary {
-    font-size: 11px;
     padding-inline: 12px;
-  }
-
-  .hero h1 {
-    font-size: 52px;
   }
 
   .hero-badge {

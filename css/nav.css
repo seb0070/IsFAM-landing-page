@@ -11,7 +11,7 @@
   background: rgba(243, 239, 232, 0.72);
   backdrop-filter: blur(18px) saturate(180%);
   -webkit-backdrop-filter: blur(18px) saturate(180%);
-  border-bottom: 1px solid rgba(146, 120, 86, 0.16);
+  border-bottom: 1px solid rgba(120, 112, 100, 0.20);
 }
 .nav-brand {
   display: flex;
@@ -31,7 +31,7 @@
   object-position: center 30%;
 }
 .nav-link {
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--muted);
   white-space: nowrap;
@@ -46,4 +46,3 @@
   box-shadow: 0 10px 22px rgba(190, 122, 42, 0.26);
   font-size: 15px;
 }
-

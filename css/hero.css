@@ -9,27 +9,6 @@
   overflow: hidden;
   pointer-events: none;
 }
-.hero-glow::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: -220px;
-  transform: translateX(-50%);
-  width: min(1400px, 130%);
-  height: 900px;
-  background: radial-gradient(
-    ellipse at 50% 0%,
-    rgba(255, 197, 61, 0.3) 0%,
-    rgba(243, 239, 232, 0) 62%
-  );
-}
-.hero {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
-  gap: 56px clamp(40px, 5vw, 88px);
-  align-items: center;
-  padding-top: clamp(72px, 11vh, 132px);
-}
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -45,51 +24,13 @@
   background: var(--orange);
   animation: isPulse 2s ease-in-out infinite;
 }
-.hero h1 {
-  font-size: clamp(36px, 5.8vw, 88px);
-  font-weight: 800;
-  line-height: 1.12;
-  letter-spacing: -0.03em;
-  margin-top: 28px;
-}
-.hero h1 span {
-  color: var(--orange);
-}
 .hero-sub {
   font-size: 20px;
   font-weight: 500;
-  line-height: 1.85;
+  line-height: 1.7;
   color: var(--muted);
   max-width: 32ch;
   margin-top: 30px;
-}
-.hero .btn-primary {
-  margin-top: 38px;
-}
-
-.hero-art {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(26px, 3vw, 40px);
-  padding: clamp(12px, 2vw, 28px) 0;
-}
-.hero-art::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 4%;
-  transform: translateX(-50%);
-  width: 104%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  pointer-events: none;
-  background: radial-gradient(
-    circle,
-    rgba(255, 176, 32, 0.3) 0%,
-    rgba(255, 176, 32, 0) 64%
-  );
 }
 .phone {
   position: relative;
@@ -128,38 +69,3 @@
   pointer-events: none;
   z-index: 1;
 }
-.phone-hero {
-  width: clamp(286px, 30vw, 365px);
-  transition: transform 0.6s var(--ease);
-}
-.phone-hero:hover {
-  transform: translateY(-8px);
-}
-.chips {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-}
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 15px;
-  border-radius: 999px;
-  background: #fff;
-  box-shadow: 0 8px 22px rgba(92, 66, 28, 0.07);
-  font-size: 13.5px;
-  font-weight: 600;
-  color: var(--muted);
-  white-space: nowrap;
-}
-.chip::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--orange);
-}
-
