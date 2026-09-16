@@ -1,0 +1,1039 @@
+/* ================================================================
+   디자인 시스템 — 표면, 모서리, 정렬을 여기 한 곳에서 정한다.
+   가장 마지막에 적용되므로 이 파일의 값이 최종이다.
+   ================================================================ */
+:root {
+  /* 표면은 두 단계뿐이다: 페이지 배경과 그 위에 놓이는 카드 */
+  --surface-card: #f7f6f3;
+  --surface-card-hover: #f2f0ec;
+  /* 어두운 면 위에 놓이는 카드 (#test, #tech, #why 결론 타일) */
+  --surface-card-dark: #1b1714;
+  /* 주 버튼 — 원색 주황. 칙칙함의 정체는 명도를 내린 것이었다.
+       #b25b24  S66% L42%   채도도 명도도 내림
+       #e5963c  S76% L57%   채도 내림
+       #f9801c  S95% L54%   이 페이지가 원래 쓰던 버튼 주황
+     이 밝기에서 흰 글자는 2.58:1 뿐이라(기준 4.5:1) 글자를 어두운
+     갈색으로 둔다 — 6.38:1. 덕분에 호버는 면을 '밝게' 해도 대비가
+     오히려 올라간다(7.08:1). 검정을 섞는 방향이 아예 없어진다. */
+  --btn: #f9801c;
+  --btn-hover: #ff8c1a;
+  --btn-text: #2b1c0c;
+  /* 모서리도 두 종류뿐이다 (이전에는 20·22·26·28·34px 이 섞여 있었다) */
+  --radius-card: 20px;
+  --radius-group: 28px;
+}
+/* ── 1. 표면 ─────────────────────────────────────────────────────
+   규칙은 하나: 바탕은 흰색, 그 위에 놓이는 프레임과 카드는 옅은 온색.
+   면 색만으로 구분되므로 테두리는 쓰지 않는다.                       */
+.stat {
+  background: var(--surface-card);
+  border: 0;
+  border-radius: var(--radius-card);
+  box-shadow: none;
+  /* 280px 를 강제해 내용 아래로 빈 공간이 크게 남았다. 내용에 맡긴다 */
+  min-height: 0;
+  padding: 26px 24px 28px;
+}
+.stat:hover {
+  transform: none;
+  box-shadow: none;
+  background: var(--surface-card-hover);
+}
+/* 어두운 섹션의 카드 */
+.quiz-card,
+.tech {
+  background: var(--surface-card-dark);
+  border: 0;
+  border-radius: var(--radius-card);
+}
+
+/* min-height 330px 이 내용보다 커서 글 아래로 68px 이 빈 채 남았다.
+   높이는 내용에 맡기고, 여백은 위아래를 같게 둔다. */
+.tech {
+  min-height: 0;
+  padding: clamp(26px, 2.4vw, 32px);
+}
+.group {
+  border-radius: var(--radius-group);
+}
+/* ── 2. 프레임 중첩 제거 ─────────────────────────────────────────
+   폰 목업에는 이미 베젤(.phone::after)이 있다. 그 위에 다시 카드를
+   씌우면 섹션 → 그룹 → 카드 → 베젤 로 테두리가 네 겹이 된다.
+   목업을 감싸던 바깥 카드를 걷어낸다.                              */
+.share-art,
+.verdict {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding-inline: 0;
+}
+.verdict:hover,
+.verdict.is-on {
+  box-shadow: none;
+}
+/* ── 3. 정렬 ─────────────────────────────────────────────────────
+   .sec-title 에 margin-inline:auto 가 걸려 있어서, 가운데 정렬이
+   아닌 섹션에서도 제목 블록만 중앙으로 밀려 위의 kicker 와 어긋났다.
+   섹션 머리글은 전부 가운데로 통일하고, 카드와 목록 안쪽만 왼쪽을
+   유지한다.                                                        */
+#guidance,
+#faq {
+  text-align: center;
+}
+#guidance .content-lead,
+#guidance .guidance-sub,
+#faq .faq-list {
+  margin-inline: auto;
+}
+/* 긴 문단은 블록만 가운데 두고 글자는 왼쪽으로 둬야 읽기 쉽다 */
+#guidance .content-caution {
+  max-width: 720px;
+  margin-inline: auto;
+  text-align: left;
+}
+/* 카드와 목록 안쪽은 왼쪽 정렬 */
+.content-card,
+.faq-list,
+.share-item,
+.stat {
+  text-align: left;
+}
+
+/* 가운데 정렬 섹션 안에서 max-width 가 걸린 블록은 가로 마진도 auto 여야
+   위아래 요소와 세로 축이 맞는다. auto 가 없으면 그 블록만 왼쪽에 붙는다. */
+.tech-intro,
+#how > .content-lead {
+  margin-inline: auto;
+}
+
+/* 왼쪽 표시선이 있는 문단은 블록만 가운데 두고 글자는 왼쪽으로 */
+.tech-principle {
+  margin-inline: auto;
+  text-align: left;
+}
+
+/* ── 4. 왜 필요한가요 ─────────────────────────────────────────────
+   apple-home 이 .why-head 를 세로로 쌓아 마스코트가 글 한참 아래로
+   내려가 있었다. 861px 이상에서는 글 왼쪽 / 마스코트 오른쪽으로 붙인다.
+   860px 이하는 responsive.css 의 가운데 정렬 배치를 그대로 쓴다.    */
+@media (min-width: 861px) {
+  #why {
+    text-align: left;
+  }
+  .why-head {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(28px, 4vw, 60px);
+  }
+  .why-copy {
+    flex: 1 1 520px;
+    max-width: 640px;
+  }
+  #why .sec-title,
+  .why-desc {
+    margin-inline: 0;
+  }
+  .why-desc {
+    max-width: 50ch;
+    font-size: clamp(17px, 1.5vw, 20px);
+    line-height: 1.7;
+  }
+  /* 착지했을 때 #why 하나로 화면이 채워져야 한다. 내용이 화면보다
+     짧으면 다음 섹션(검정)이 아래에 비쳤다. 한 화면을 최소로 잡고
+     내용을 가운데에 세운다 — 내용이 더 길면 자연히 늘어난다.       */
+  #why {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* 폭만 재면 낮은 화면에서 #why 가 한 화면을 넘는다. 마스코트는
+     세로가 가로의 1.2 배라 화면 높이로도 함께 묶는다 */
+  .why-art {
+    flex: none;
+    width: min(clamp(240px, 25vw, 330px), 36svh);
+    margin: 0;
+  }
+
+  /* 머리글과 카드 사이는 적당히 띄운다 */
+  #why .stat-grid {
+    margin-top: clamp(56px, 7vh, 88px);
+  }
+}
+
+/* ── 8. 폰 목업 가운데 정렬 ──────────────────────────────────────
+   폭만 지정되고 가로 마진이 auto 가 아니라, 글은 가운데인데 목업만
+   왼쪽에 붙어 있었다. 목업을 담는 칸에서 가운데로 세운다.           */
+.verdict .phone,
+.share-art .phone,
+.phone-step,
+.hero-story-phone {
+  margin-inline: auto;
+}
+
+/* .step-art 는 flex 세로 상자라 마진 대신 교차축 정렬로 맞춘다 */
+.step-art {
+  align-items: center;
+}
+
+/* ── 9. 판정 카드 선택 강조 ──────────────────────────────────────
+   흐림과 채도만으로는 차이가 약해서 살짝 키우고 들어 올린다.
+   크기는 3% 만 — 앞서 24%·16% 짜리 변형이 과했던 걸 감안한 값이다.
+   apple-home 이 !important 로 transform 을 잠가 둬서 여기서도 필요하다. */
+.verdict {
+  transform-origin: center bottom;
+  transition: transform 0.38s var(--ease), opacity 0.32s ease, filter 0.32s ease;
+}
+
+.verdict:hover,
+.verdict.is-on {
+  transform: translateY(-12px) scale(1.03) !important;
+}
+
+/* 선택되지 않은 카드는 조금 더 물러나게 해 대비를 준다 */
+.verdict:not(.is-on):not(:hover) {
+  opacity: 0.82;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .verdict:hover,
+  .verdict.is-on {
+    transform: none !important;
+  }
+  .verdict:not(.is-on):not(:hover) {
+    opacity: 1;
+  }
+}
+
+/* ── 6. 그룹 머리글 ──────────────────────────────────────────────
+   섹션 제목이 가운데인데 그룹 머리글만 왼쪽이라 축이 어긋났다.
+   제목류는 전부 가운데로 두고 콘텐츠만 칼럼으로 나눈다.
+   번호는 라벨과 한 줄로 합쳐 제목 위 작은 머리글이 되게 한다.      */
+
+/* 단계 제목이 그룹 제목(34px/700)보다 굵어서 위계가 뒤집혀 있었다 */
+.step-copy h4 {
+  font-size: clamp(20px, 2vw, 27px);
+  font-weight: 700;
+}
+
+/* ── 그룹 머리글 ─────────────────────────────────────────────────
+   온보딩·분석·공유를 가르는 장(章) 단위 머리글이다.
+   큰 옅은 숫자 = 장 번호, 그 아래 작은 주황 라벨, 그 아래 제목.
+   그룹 안의 단계 번호(13px 주황)와 크기·색을 둘 다 다르게 둬야
+   위계가 산다.                                                    */
+.group-title {
+  display: block;
+  text-align: center;
+}
+
+.group-no {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted3);
+  font-size: clamp(38px, 4.6vw, 64px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.group-tag {
+  display: block;
+  margin-bottom: 10px;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--orange);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.group-title h3 {
+  font-size: clamp(22px, 2.4vw, 34px);
+  font-weight: 700;
+}
+
+/* ── 공유 구역 ───────────────────────────────────────────────────
+   불릿 점과 표 구분선은 정보가 없는 장식이었다. 둘 다 빼고
+   제목 위 짧은 주황 룰 + 넉넉한 여백으로 항목을 가른다.
+   폰은 키우고 사이를 좁혀 글이 '그 화면 설명'으로 읽히게 한다.     */
+.share {
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr);
+  gap: 28px clamp(24px, 3vw, 44px);
+  align-items: center;
+}
+
+.share-art {
+  padding: 0;
+}
+
+.share-art .phone {
+  width: min(300px, 100%);
+}
+
+.share-list {
+  background: #fff;
+  border-radius: var(--radius-card);
+  padding: clamp(26px, 3vw, 38px) clamp(24px, 2.8vw, 34px);
+  gap: clamp(26px, 3vw, 34px);
+}
+
+/* 구분선과 점을 없애고 여백으로만 나눈다.
+   :last-child 쪽이 더 구체적이라 border:0 만으로는 안 꺼진다 */
+.share-item,
+.share-item:first-child,
+.share-item:last-child {
+  padding: 0;
+  border: 0;
+}
+
+.share-item::before {
+  content: "";
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin-bottom: 14px;
+  border-radius: 2px;
+  background: var(--orange);
+}
+
+.share-item b {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.share-item p {
+  margin-top: 8px;
+  max-width: 36ch;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+@media (max-width: 860px) {
+  .share {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── 행동 안내 구역 ──────────────────────────────────────────────
+   이 구역만 면을 반전시켜 '옅은 패널 + 흰 카드'로 둔다. 장식을 더하지
+   않고도 다른 구역과 구분된다.
+
+   전에는 #guidance 자체가 .wrap 이라 배경이 1180px 안쪽만 칠했고,
+   여백을 margin 으로 줘서 그 여백이 body 의 흰색으로 드러났다.
+   #test·#tech 처럼 '바깥 section 이 배경 + 안쪽 .wrap 이 내용' 구조로
+   바꿨다. 여백은 padding 으로 줘야 색이 끝까지 따라온다.           */
+#guidance {
+  padding-block: clamp(96px, 12vw, 160px);
+  background: var(--surface-card);
+}
+
+/* 카드가 패널 폭을 다 써서 아래 목록(820px)보다 훨씬 넓었다. 이 구역의
+   모든 덩어리를 860px 한 기둥에 맞춰 좌우 끝을 하나로 만든다.
+   auto-fit 은 중간 폭에서 2+1 로 갈라지므로 3열을 명시한다. */
+.guide-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  max-width: 860px;
+  margin: clamp(36px, 4.5vh, 52px) auto 0;
+  text-align: left;
+}
+
+@media (min-width: 861px) {
+  .guide-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 흰 카드와 옅은 온색 바탕의 밝기 비가 1.08:1 뿐이라 면이 안 읽혔다.
+   (흰 페이지 위의 옅은 카드는 같은 차이여도 카드가 커서 읽힌다)
+   색을 더 벌리는 대신 그림자로 띄운다 — 카드 색은 흰색 그대로. */
+.guide-card {
+  padding: clamp(24px, 2.6vw, 32px);
+  border-radius: var(--radius-card);
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(92, 64, 28, 0.05),
+    0 10px 24px -10px rgba(92, 64, 28, 0.16);
+  transition: transform 0.32s var(--ease), box-shadow 0.32s ease;
+}
+
+.guide-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 1px 2px rgba(92, 64, 28, 0.05),
+    0 16px 32px -12px rgba(92, 64, 28, 0.2);
+}
+
+.guide-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--muted2);
+}
+
+.guide-pill::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.guide-card h3 {
+  margin-top: 14px;
+  font-size: clamp(18px, 1.8vw, 21px);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.03em;
+}
+
+.guide-card p {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* 판정 색은 배지 글자에만. 면을 칠하지 않아 절제된다 */
+.guide-card--warn .guide-pill {
+  color: var(--warn);
+}
+
+.guide-card--danger .guide-pill {
+  color: var(--danger);
+}
+
+/* ── 이럴 때 확인하세요 ──────────────────────────────────────────
+   체크마크와 카드를 빼고 제목|설명 2열로 정렬한다. 같은 섹션 안에서
+   위 카드 3장과 결이 달라 두 덩어리가 자연스럽게 구분된다.          */
+/* 13px 대문자풍 라벨이라 목록의 제목(17px)보다 작아 위계가 뒤집혀
+   있었다. 목록을 여는 제목이니 그보다 크게 두고, 가운데 정렬을 풀어
+   목록과 같은 왼쪽 선에 맞춘다. 삼각형 주의 표시를 앞에 둔다. */
+.guidance-sub {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 860px;
+  margin: clamp(48px, 6vh, 72px) auto 0;
+  font-size: clamp(19px, 1.8vw, 23px);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  text-align: left;
+}
+
+.guidance-sub-icon {
+  flex: none;
+  width: 1.05em;
+  height: 1.05em;
+  color: var(--warn);
+}
+
+.guide-cases {
+  list-style: none;
+  max-width: 860px;
+  margin: 18px auto 0;
+  text-align: left;
+}
+
+.guide-cases li {
+  display: grid;
+  gap: 4px;
+  padding: 20px 0;
+  border-top: 1px solid var(--line);
+}
+
+.guide-cases li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.guide-cases b {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.guide-cases span {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+@media (min-width: 861px) {
+  .guide-cases li {
+    grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
+    gap: 28px;
+    align-items: baseline;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guide-card,
+  .guide-card:hover {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── 마무리 문단들 ───────────────────────────────────────────────
+   면책과 기술 선언에 똑같은 주황 짝대기가 붙어 성격이 다른 둘이
+   같은 급으로 보였다. 짝대기를 걷고 역할대로 크기와 색으로만 구분한다.                                        */
+.content-caution,
+.tech-principle {
+  padding-left: 0;
+  border-left: 0;
+  margin-inline: auto;
+}
+
+/* 법적 고지 — 본문보다 작고 조용하게. 위에 옅은 선으로만 구분 */
+#guidance .content-caution {
+  max-width: 720px;
+  margin-top: clamp(40px, 5vh, 64px);
+  color: var(--muted2);
+  font-size: 13px;
+  line-height: 1.8;
+  text-align: center;
+}
+
+/* 섹션 마무리 선언 — 조금 크고 밝게 */
+.tech-principle {
+  max-width: 34ch;
+  margin-top: clamp(44px, 5.5vh, 68px);
+  color: var(--on-dark);
+  font-size: clamp(17px, 1.7vw, 21px);
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+/* ── 배경의 계단 ─────────────────────────────────────────────────
+   스크롤 순서대로 면은 이렇게 간다.
+     히어로   따뜻한 빛   (흰색 + 주황 radial)
+     01 why  흰색        + 옅은 카드
+     02 test 검정        + 어두운 카드
+     03 how  흰색        + 옅은 카드
+     04 tech 검정        + 어두운 카드
+     05 안내  옅은 패널    + 흰 카드 (둥근 틀)
+     06 faq  흰색
+     07 cta  따뜻한 빛   (히어로와 같은 레시피)
+
+   한때 #tech 를 숯색(#2a241f)으로 한 단 낮춰 두 어두운 구간을
+   갈랐지만, 갈색기가 돌아 #test 와 같은 검정으로 되돌렸다.        */
+
+/* ── 마지막 전환(CTA) ────────────────────────────────────────────
+   버튼이 단독이던 시절의 margin-top 이 .btn-invert 에 남아 두 버튼의
+   높이가 어긋나 있었다. 높이·모서리를 맞추고 간격을 벌린다.
+   보조 버튼은 검정이라 주 버튼보다 무거웠다 — 흰 버튼으로 낮춘다.   */
+.cta {
+  min-height: 0;
+  padding-block: clamp(80px, 11vh, 140px);
+  /* 히어로와 같은 두 색, 자리만 옮긴다. 주광은 가운데 위로 올려
+     마스코트를 비추고, 보조광은 히어로가 왼쪽 아래였으니 여기서는
+     오른쪽 아래로 — 페이지를 지나는 동안 빛이 건너간다. */
+  background:
+    radial-gradient(
+      ellipse 58% 54% at 50% 24%,
+      rgba(255, 176, 32, 0.13) 0%,
+      rgba(255, 199, 128, 0.065) 44%,
+      transparent 74%
+    ),
+    radial-gradient(
+      ellipse 68% 48% at 84% 88%,
+      rgba(255, 134, 94, 0.075) 0%,
+      rgba(255, 190, 158, 0.035) 48%,
+      transparent 78%
+    ),
+    linear-gradient(180deg, #fff 0%, #fffdfa 56%, #fff 100%);
+}
+
+.cta-shell h2 {
+  margin-top: 14px;
+}
+
+.cta-shell > p {
+  margin-top: clamp(18px, 2.4vh, 26px);
+}
+
+.cta-actions {
+  gap: 12px 14px;
+  margin-top: clamp(30px, 4vh, 42px);
+}
+
+/* 두 버튼의 높이·모서리·글자를 하나로 맞춘다.
+   .btn-ghost 에는 display 선언이 아예 없었다 — .cta-actions 가 flex
+   라서 인라인 <a> 가 블록으로 바뀌고, 세로 정렬이 없어 54px 상자
+   안에서 글자가 위에 붙어 있었다. 그래서 잘린 것처럼 보였다. */
+.cta-actions .btn-invert,
+.cta-actions .btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  min-height: 48px;
+  margin-top: 0;
+  padding: 0 26px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: none;
+}
+
+/* ── 버튼 ─────────────────────────────────────────────────────────
+   단색 면 + 1px 하드 테두리는 잘라 붙인 스티커처럼 보인다. 위계는
+   그대로 두고 입체만 만든다.
+     · 면   위가 밝고 아래가 어두운 짧은 그라데이션 → 볼륨
+     · inset 위 하이라이트 + 아래 음영 → 윗면이 빛을 받는 느낌
+     · 그림자 회색이 아니라 버튼 색을 머금은 색 → 떠 보인다
+     · 누름  1px 내려앉고 그림자가 줄어든다                        */
+.btn-primary,
+.cta .cta-actions .btn-invert {
+  border: 0;
+  background: var(--btn);
+  color: var(--btn-text);
+  /* 입체는 그라데이션이 아니라 그림자로. 회색 그림자는 면을 탁하게
+     만들어서, 버튼 색을 어둡게 한 색으로 깐다 */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 1px 2px rgba(176, 88, 8, 0.28), 0 8px 18px -6px rgba(233, 122, 16, 0.42);
+  transition: translate 0.18s var(--ease), box-shadow 0.18s ease,
+    background 0.18s ease;
+}
+
+.btn-primary:hover,
+.cta .cta-actions .btn-invert:hover {
+  translate: 0 -1px;
+  background: var(--btn-hover);
+  color: var(--btn-text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    0 1px 2px rgba(176, 88, 8, 0.26), 0 12px 24px -6px rgba(233, 122, 16, 0.5);
+}
+
+.btn-primary:active,
+.cta .cta-actions .btn-invert:active {
+  translate: 0 1px;
+  /* 색은 그대로 두고 안쪽 그림자로만 눌린 느낌을 낸다 */
+  box-shadow: inset 0 2px 6px rgba(176, 88, 8, 0.34),
+    0 1px 2px rgba(176, 88, 8, 0.24);
+}
+
+/* 보조 버튼 — 주 버튼을 가리지 않게 흰 면으로. 테두리는 하드 1px 선
+   대신 ring 그림자로 둔다. 선이 면과 같은 층에서 부드럽게 끝나
+   잘라 붙인 느낌이 사라진다. */
+.cta .cta-actions .btn-ghost {
+  border: 0;
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 0 0 1px rgba(142, 114, 80, 0.17),
+    0 1px 2px rgba(92, 64, 28, 0.06), 0 8px 18px -8px rgba(92, 64, 28, 0.2);
+  transition: translate 0.18s var(--ease), box-shadow 0.18s ease,
+    background 0.18s ease;
+}
+
+.cta .cta-actions .btn-ghost:hover {
+  translate: 0 -1px;
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 0 0 1px rgba(142, 114, 80, 0.26),
+    0 1px 2px rgba(92, 64, 28, 0.06), 0 12px 24px -8px rgba(92, 64, 28, 0.24);
+}
+
+.cta .cta-actions .btn-ghost:active {
+  translate: 0 1px;
+  box-shadow: 0 0 0 1px rgba(142, 114, 80, 0.26),
+    inset 0 2px 4px rgba(92, 64, 28, 0.1);
+}
+
+
+
+/* ── #why 지표 — 한 줄 3칸 ───────────────────────────────────────
+   2칸+1칸 벤토는 줄바꿈이 생겨 한눈에 안 들어왔다. 세 칸을 같은 크기로
+   한 줄에 놓고, 위계는 크기가 아니라 색으로 준다 — 문제 두 칸은 옅은
+   온색, IsFam 의 답 한 칸만 어두운 면. 숫자 크기도 통일해서 좌우로
+   훑을 때 기준선이 하나가 되게 한다.                                */
+#why .stat-grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 1.4vw, 18px);
+  margin-top: clamp(48px, 6.5vh, 80px);
+}
+
+#why .stat {
+  padding: clamp(22px, 2vw, 30px);
+  border: 0;
+  border-radius: var(--radius-card);
+  background: var(--surface-card);
+  text-align: left;
+  /* 등장은 transform(story.css 가 제어), 호버는 translate — 한 요소에서
+     두 움직임이 같은 속성을 다투지 않게 서로 다른 속성을 쓴다 */
+  transition: transform 0.7s var(--ease), opacity 0.7s ease,
+    translate 0.25s var(--ease), background 0.25s ease;
+}
+
+#why .stat:hover {
+  translate: 0 -4px;
+  background: var(--surface-card-hover);
+}
+
+/* 문제에서 해법으로 넘어가는 칸만 어두운 면으로 */
+#why .stat:last-child {
+  background: var(--surface-card-dark);
+}
+
+#why .stat:last-child:hover {
+  background: #241f1b;
+}
+
+#why .stat:last-child .stat-cap {
+  color: rgba(255, 255, 255, 0.52);
+}
+
+#why .stat:last-child .stat-note {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+#why .stat-cap {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--muted2);
+}
+
+#why .stat-fig {
+  margin-top: 12px;
+  padding-bottom: 4px;
+  overflow: hidden;
+}
+
+/* 세 칸 모두 같은 크기 — 숫자가 나란히 읽혀야 한눈에 들어온다 */
+#why .stat-fig b {
+  display: inline-block;
+  font-size: clamp(36px, 4.6vw, 58px);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  transition: transform 0.9s var(--ease), opacity 0.5s ease;
+}
+
+#why .stat-fig span {
+  font-size: 17px;
+}
+
+#why .stat-note {
+  margin-top: 14px;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* 아래에서 밀려 올라오는 등장. 카운트업과 함께 움직인다 */
+#why .stat-grid:not(.in) .stat-fig b {
+  transform: translateY(105%);
+  opacity: 0;
+}
+
+#why .stat-grid .stat:nth-child(2) .stat-fig b {
+  transition-delay: 0.16s;
+}
+
+#why .stat-grid .stat:nth-child(3) .stat-fig b {
+  transition-delay: 0.32s;
+}
+
+/* 마스코트가 아주 느리게 떠 있게 — 파수꾼이 지켜보는 느낌 */
+#why .why-art img {
+  animation: whyFloat 7s ease-in-out infinite;
+}
+
+@keyframes whyFloat {
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+/* ── 한글 가독성 ─────────────────────────────────────────────────
+   본문이 14~15px 이라 한글에는 작았다. 16px 로 올리고 행간을 넓힌다. */
+.guide-card p,
+.share-item p,
+.guide-cases span {
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.guide-cases b,
+.share-item b {
+  font-size: 17px;
+}
+
+/* ── #why 지표 모바일 ────────────────────────────────────────────
+   숫자와 단위가 한 줄에 들어가는 한 3칸을 유지한다. 760px 아래에서는
+   '7,992 억 원' 이 칸을 넘치기 시작하므로 한 열로 내린다.            */
+@media (max-width: 760px) {
+  #why .stat-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+/* ── #why 머리글 모바일 ──────────────────────────────────────────
+   gap 이 kicker·제목·마스코트·설명문 사이에 똑같이 들어가 리듬이
+   없었고, apple-home 의 .why-art margin 50px 이 responsive.css 의
+   18px 를 덮어 제목과 마스코트가 70px 넘게 벌어져 있었다. gap 을
+   끄고 각 간격을 직접 정한다.                                      */
+@media (max-width: 860px) {
+  #why .why-head {
+    gap: 0;
+  }
+  #why .why-head .sec-title {
+    margin-top: 10px;
+  }
+  /* 설명을 먼저 읽고 그림을 보게 — 그림이 지표로 넘어가는 전환이 된다 */
+  #why .why-desc {
+    order: 2;
+    margin-top: 18px;
+  }
+  #why .why-art {
+    order: 3;
+    width: min(228px, 52vw);
+    margin: clamp(26px, 5vw, 36px) auto 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #why .why-art img {
+    animation: none;
+  }
+  #why .stat-grid:not(.in) .stat-fig b {
+    transform: none;
+    opacity: 1;
+  }
+  #why .stat:hover {
+    translate: none;
+  }
+}
+
+/* 내비에 이미 backdrop-filter 블러가 있어서 하단선까지 두면 중복이다.
+   반투명 면만으로 떠 있게 한다 */
+.nav {
+  border-bottom: 0;
+}
+
+/* ── 히어로 하단 스크롤 화살표 ───────────────────────────────────
+   히어로의 '알아보기' 버튼을 걷어내고, 다음 섹션으로 내려가는 신호만
+   맨 아래 가운데에 둔다. 버튼 두 개가 위계를 다투지 않고, 첫 화면의
+   행동은 '시작하기' 하나로 좁혀진다. 히어로가 콘텐츠 높이라서
+   absolute bottom 이 곧 히어로 블록의 맨 아래다.                    */
+/* 첫 화면의 주 행동. 지금은 #start 안내로 내려가고, 스토어가 열리면
+   [data-install] 이 알아서 설치 링크로 바뀐다. 높이·모서리·글자는
+   마지막 전환(CTA)의 버튼과 같은 값으로 맞춘다 */
+.hero-start {
+  margin-top: 26px;
+  min-height: 48px;
+  height: 48px;
+  padding: 0 26px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* 내비는 48px 인데 버튼의 계산 높이가 max(height 30px, min-height
+   44px) = 44px 였다. 위아래 여유가 2px 뿐이라 넘쳐 보였다. min-height
+   는 특이도가 낮은 .btn-primary 에서 오는데 .nav 규칙이 height 만
+   덮고 있었던 것. min-height 를 풀고 34px 로 세운다 (여유 7px). */
+.nav .btn-primary {
+  min-height: 0;
+  height: 34px;
+  padding: 0 16px;
+  font-size: 13px;
+  /* 작은 버튼이라 그림자도 한 단 얕게 */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 1px 2px rgba(176, 88, 8, 0.24), 0 4px 10px -3px rgba(233, 122, 16, 0.4);
+}
+
+/* ── 히어로 바탕 ─────────────────────────────────────────────────
+   주황 하나를 .32 알파로 크게 깔아 탁하고 과했다. 세기를 절반 이하로
+   낮추고 색을 둘로 나눈다 — 오른쪽 위 앰버가 주광, 왼쪽 아래 살구빛이
+   보조광. 한 색만 쓰면 아무리 옅게 해도 납작해 보이는데, 반대편에서
+   다른 색이 낮게 받쳐 주면 같은 세기에서도 깊이가 생긴다.          */
+.hero-shell {
+  background:
+    radial-gradient(
+      ellipse 54% 58% at 78% 26%,
+      rgba(255, 176, 32, 0.14) 0%,
+      rgba(255, 199, 128, 0.07) 44%,
+      transparent 74%
+    ),
+    radial-gradient(
+      ellipse 62% 54% at 14% 84%,
+      rgba(255, 134, 94, 0.085) 0%,
+      rgba(255, 190, 158, 0.04) 48%,
+      transparent 76%
+    ),
+    linear-gradient(180deg, #fffdfa 0%, #fff 52%, #fff 100%);
+}
+
+/* ── 히어로 하단 ─────────────────────────────────────────────────
+   히어로 본문은 한 화면(100svh)을 쓰고, 그 아래에 화살표 자리를 더
+   둔다. 그래서 첫 화면에는 화살표가 보이지 않고 살짝 내리면 나타난다. */
+.hero-shell {
+  padding-bottom: clamp(104px, 11vh, 140px);
+}
+
+/* 내비는 히어로 안에 있고 overflow: clip 에 잘려 히어로를 지나면
+   사라진다. 앵커 여백 48px 은 착지할 때 히어로를 한 줄 남기는
+   역할만 했다 — 0 으로 둬서 섹션 맨 위에 딱 붙게 한다. */
+html {
+  scroll-padding-top: 0;
+}
+
+/* 세로가 짧은 폰(SE 급)에서는 카피가 한 화면 예산을 넘는다. 글자
+   크기는 그대로 두고 여백만 줄여 담는다 — 내용을 빼지 않는다 */
+@media (max-width: 860px) and (max-height: 620px) {
+  .hero-shell .hero-chapter--intro {
+    padding-top: 56px;
+  }
+  .hero-shell .hero-chapter .hero-facts {
+    margin-top: 20px;
+  }
+  .hero-shell .hero-start {
+    margin-top: 18px;
+  }
+}
+
+/* 문구 + 동그란 화살표. 버튼이 아니라 '더 내려가세요' 신호다 */
+.hero-scroll {
+  position: absolute;
+  bottom: clamp(16px, 2.6vh, 30px);
+  left: 50%;
+  translate: -50% 0;
+  z-index: 6;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  color: var(--muted);
+  transition: color 0.25s ease, translate 0.25s var(--ease);
+}
+
+.hero-scroll:hover {
+  color: var(--ink);
+  translate: -50% 3px;
+}
+
+.hero-scroll-label {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.hero-scroll-arrow {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(18px) saturate(135%);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+  /* 문구는 가만히 두고 화살표만 움직인다 — 글자가 떨면 읽기 불편하다 */
+  animation: heroScrollCue 1.9s var(--ease) infinite;
+}
+
+@keyframes heroScrollCue {
+  0%,
+  100% {
+    transform: translateY(-2px);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary,
+  .cta .cta-actions .btn-invert,
+  .cta .cta-actions .btn-ghost {
+    transition: box-shadow 0.18s ease, background 0.18s ease;
+  }
+  .btn-primary:hover,
+  .btn-primary:active,
+  .cta .cta-actions .btn-invert:hover,
+  .cta .cta-actions .btn-invert:active,
+  .cta .cta-actions .btn-ghost:hover,
+  .cta .cta-actions .btn-ghost:active {
+    translate: none;
+  }
+  .hero-scroll-arrow {
+    animation: none;
+  }
+  .hero-scroll:hover {
+    translate: -50% 0;
+  }
+}
+
+/* ── 목록 구분선 ─────────────────────────────────────────────────
+   항목 사이에만 선을 둔다. 첫 항목 위와 마지막 항목 아래의 선은
+   목록을 가두어 표처럼 보이게 하므로 걷어낸다.                     */
+.guide-cases li:first-child {
+  border-top: 0;
+}
+
+.guide-cases li:last-child {
+  border-bottom: 0;
+}
+
+/* ── 딥보이스 체험(#test) = main 값 ────────────────────────────
+   main 과 다른 것은 글자 크기·행간 10개뿐이었다. 구조·배치·색·움직임은
+   이미 같다. 초기 타이포그래피 통일 때 이 섹션 값도 함께 내려갔는데,
+   #test 는 어두운 면에 놓인 별개의 장이라 밝은 섹션과 같은 자를 쓸
+   이유가 없었다. #test 안으로 한정해 main 값을 그대로 되돌린다.
+
+   특히 .result-rate 는 150px -> 96px 로 36% 깎여 있었다. 두 음성을
+   고르고 나서 받는 그 숫자 하나가 이 섹션의 결말이다.              */
+#test .quiz-head h2 {
+  font-size: clamp(34px, 4.2vw, 60px);
+}
+
+#test .quiz-head p {
+  line-height: 1.85;
+}
+
+#test .quiz-card-name {
+  font-size: 15.5px;
+}
+
+#test .quiz-veil-hint {
+  font-size: 12.5px;
+}
+
+#test .quiz-desc {
+  line-height: 1.75;
+}
+
+#test .quiz-step > p {
+  font-size: 16.5px;
+  line-height: 1.85;
+}
+
+#test .age-row .btn-ghost {
+  font-size: 17px;
+}
+
+/* main 은 clamp(88px, 11vw, 150px) 였다. 구조는 main 그대로 두고
+   숫자만 한 단 줄인다 — 좁은 폭에서 88px 이 바닥이라 최소값도 함께
+   내려야 실제로 작아진다 */
+#test .result-rate {
+  font-size: clamp(72px, 9vw, 124px);
+  line-height: 0.85;
+}
+
+#test .result-body {
+  line-height: 1.9;
+}
