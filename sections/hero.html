@@ -2,60 +2,62 @@
   <div class="hero-glow" id="hero-webgl-root" aria-hidden="true"></div>
 
   <nav class="nav">
-    <div class="nav-brand" id="liquid-logo-root" aria-label="IsFam"></div>
-    <a class="nav-link" href="#service">서비스 소개</a>
-    <a class="nav-link" href="#test">직접 체험</a>
-    <a class="nav-link" href="#how">이용 방법</a>
-    <a class="nav-link" href="#family">가족 연결</a>
-    <a class="nav-link" href="#tech">안심 설계</a>
-    <div id="nav-glass-root"></div>
+    <span class="nav-brand" aria-label="IsFam">
+      <img src="assets/mascot-splash.webp" width="200" height="200" alt="" />
+      <span>IsFam</span>
+    </span>
+    <a class="nav-link" href="#why">필요성</a>
+    <a class="nav-link" href="#test">체험하기</a>
+    <a class="nav-link" href="#how">작동 방식</a>
+    <a class="nav-link" href="#tech">기술 보안</a>
+    <a class="btn-primary" href="#start" data-install>IsFam 시작하기</a>
   </nav>
 
-  <section class="hero-story wrap" data-screen-story data-story="hero" data-step="0" aria-label="IsFam 서비스 소개">
+  <section class="hero-story wrap" data-story="hero" aria-label="IsFam 서비스 소개">
     <div class="hero-story-visual">
       <div class="hero-phone-aura" aria-hidden="true"></div>
       <div class="hero-orbit hero-orbit--one" aria-hidden="true"></div>
       <div class="hero-orbit hero-orbit--two" aria-hidden="true"></div>
       <div class="hero-story-phone phone">
-        <img class="hero-story-screen is-active" data-screen="0" src="assets/app-splash.webp" width="474" height="928" alt="IsFam 시작 화면" />
-        <img class="hero-story-screen" data-screen="1" src="assets/app-alert-family.webp" width="474" height="928" alt="가족 목소리 확인 화면" />
-        <img class="hero-story-screen" data-screen="2" src="assets/app-safe.webp" width="474" height="928" alt="안전 판별 결과 화면" />
+        <img
+          class="hero-story-screen is-active"
+          src="assets/app-splash.webp"
+          width="474"
+          height="928"
+          alt="IsFam 앱 시작 화면"
+        />
       </div>
-      <div class="hero-live-pill" aria-hidden="true">
-        <i></i>
-        <span data-live-step="0">가족을 등록하고 보호를 시작하세요</span>
-        <span data-live-step="1">등록된 가족과 목소리를 비교합니다</span>
-        <span data-live-step="2">안전 · 주의 · 위험</span>
-      </div>
-      <div class="setup-progress hero-story-progress" aria-hidden="true"><i></i><i></i><i></i></div>
     </div>
 
     <div class="hero-story-copy">
-      <article class="hero-chapter hero-chapter--intro is-active" data-screen-copy="0">
-        <span class="hero-badge"><i aria-hidden="true"></i>가족을 확인하는 새로운 방법</span>
-        <h1>익숙한 목소리도<br /><span>한 번 더 확인</span>할 수 있게</h1>
-        <p class="hero-sub">IsFam은 등록된 가족의 목소리와 통화 음성을 비교해 실제 가족인지 확인할 수 있도록 돕습니다.</p>
-        <div id="hero-glass-root"></div>
+      <article class="hero-chapter hero-chapter--intro is-active">
+        <span class="hero-badge"><i aria-hidden="true"></i>가족 단위로 지키는 AI 보이스피싱 방어 솔루션</span>
+        <h1>이 목소리, 진짜<br /><span>Fam(가족)</span> 맞나요?</h1>
+        <p class="hero-sub">번호가 같아도, 목소리가 똑같아도 — 딥보이스는 귀로 구별할 수 없습니다. 통화가 끝나면 등록된 가족의 목소리와 대조해, 10초 안에 진짜 가족인지 알려드립니다.</p>
+        <a class="btn-primary hero-start" href="#start" data-install>IsFam 시작하기</a>
         <div class="hero-facts" aria-label="IsFam 주요 특징">
-          <span><strong>가족 기준</strong><small>등록 음성 비교</small></span><i aria-hidden="true"></i>
-          <span><strong>10초</strong><small>확인 시간</small></span><i aria-hidden="true"></i>
-          <span><strong>3단계</strong><small>결과 안내</small></span>
+          <span><strong>자동 확인</strong><small>통화가 끝나면 바로</small></span><i aria-hidden="true"></i>
+          <span><strong>원본 미저장</strong><small>대조용 데이터만 남김</small></span><i aria-hidden="true"></i>
+          <span><strong>3단계</strong><small>결과와 대처 안내</small></span>
         </div>
-      </article>
-
-      <article class="hero-chapter" id="hero-family-check" data-screen-copy="1">
-        <span class="kicker">가족 음성 비교</span>
-        <h2>목소리를 듣는 대신<br /><span>직접 비교합니다</span></h2>
-        <p>의심스러운 통화를 선택하면 등록된 가족의 음성과 비교해 유사도를 확인합니다. AI 화자 인식 기술을 활용합니다.</p>
-        <a class="hero-text-link" href="#how">작동 방식 보기 <b>→</b></a>
-      </article>
-
-      <article class="hero-chapter" id="hero-safe-result" data-screen-copy="2">
-        <span class="kicker">분석 결과</span>
-        <h2>어려운 숫자 대신<br /><span>이해하기 쉬운 결과로</span></h2>
-        <p>분석 결과를 안전·주의·위험 단계로 보여줘 다음 행동을 더 쉽게 판단할 수 있습니다. 애매한 경우에는 추가 확인을 안내합니다.</p>
-        <a class="hero-text-link" href="#how">결과 화면 보기 <b>→</b></a>
       </article>
     </div>
   </section>
+
+  <!-- 다음 섹션으로 내려가는 신호. core.js 가 #앵커를 부드럽게 스크롤한다 -->
+  <a class="hero-scroll" href="#why">
+    <span class="hero-scroll-label">IsFam 알아보기</span>
+    <span class="hero-scroll-arrow" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20">
+        <path
+          d="M7 10.5 12 15.5 17 10.5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.9"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </span>
+  </a>
 </div>
