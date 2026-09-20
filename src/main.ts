@@ -210,12 +210,46 @@ function initInstallLinks() {
   });
 }
 
+/**
+ * 스티키 헤더의 두 가지 상태.
+ *
+ *  is-stuck  맨 위에서는 투명, 스크롤이 시작되면 면과 그림자가 생긴다.
+ *  show-cta  첫 화면에서는 본문의 주 버튼 하나에 시선이 가야 하므로
+ *            헤더 버튼을 숨겨 두고, 본문 버튼이 화면 위로 사라질 때
+ *            떠오르게 한다. 스크롤 위치를 재는 대신 그 버튼 자체를
+ *            관찰하면 글자 크기나 배치가 바뀌어도 따라온다.
+ */
+function initNav() {
+  const nav = document.querySelector<HTMLElement>(".nav");
+  if (!nav) return;
+
+  const paintStuck = () => {
+    nav.classList.toggle("is-stuck", window.scrollY > 8);
+  };
+  paintStuck();
+  window.addEventListener("scroll", paintStuck, { passive: true });
+
+  const heroCta = document.querySelector(".hero-start");
+  if (!heroCta) {
+    // 본문 버튼이 없으면 숨겨 둘 이유가 없다
+    nav.classList.add("show-cta");
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    ([entry]) => nav.classList.toggle("show-cta", !entry.isIntersecting),
+    { threshold: 0 },
+  );
+  observer.observe(heroCta);
+}
+
 async function bootstrap() {
   includeSections();
   initScrollStory();
   initStepStory();
   initCountUp();
   initInstallLinks();
+  initNav();
 
   await import("../js/core.js");
   await import("../js/voice-test.js");

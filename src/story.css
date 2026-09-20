@@ -395,39 +395,69 @@
 }
 
 @media (max-width: 860px) {
+  /* 배지 -> 목업 -> 제목 -> 설명 -> 버튼 -> 특징 띠 순으로 세운다.
+     목업은 카피 바깥에 있어서, 두 겹(.hero-story-copy, .hero-chapter)을
+     display: contents 로 풀어 모두 .hero-story 의 직계 자식으로 만든
+     뒤 order 를 준다. contents 는 박스만 없애고 요소는 남으므로
+     .hero-chapter.is-active > * 등장 애니메이션은 그대로 걸린다. */
   .hero-story {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    /* 기준선을 하나로. 정렬이 여러 번 바뀌면 눈이 따라갈 축이 없다 */
+    align-items: center;
+    text-align: center;
+    gap: 0;
     padding-inline: 20px;
   }
 
-  .hero-story-visual,
-  .hero-story-copy {
-    grid-column: 1;
-    grid-row: 1;
+  .hero-story-copy,
+  .hero-chapter {
+    display: contents;
+  }
+
+  .hero-badge {
+    order: 1;
+    /* .hero-chapter 의 padding-top 이 사라지므로 여기서 띄운다 */
+    margin-top: 28px;
+  }
+
+  .hero-chapter h1 {
+    order: 2;
+    margin-top: 18px;
   }
 
   .hero-story-visual {
-    top: 48px;
-    height: calc(100svh - 48px);
-    align-items: flex-end;
-    justify-content: flex-end;
-    padding: 0 4px 22px 0;
-    opacity: .62;
+    order: 3;
+    position: relative;
+    top: auto;
+    /* 100svh 로 높이를 강제하면 내용 아래로 빈 화면이 남는다 */
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    margin-top: 26px;
+    padding: 0;
+    /* 배경 워터마크가 아니라 본래 그림으로 보여 준다 */
+    opacity: 1;
+  }
+
+  .hero-chapter .hero-start {
+    order: 4;
+    margin-top: 28px;
+  }
+
+  .hero-chapter .hero-facts {
+    order: 5;
+    margin-top: 30px;
+  }
+
+  .hero-chapter .hero-sub {
+    order: 6;
+    margin-top: 26px;
+    text-align: center;
   }
 
   .hero-story-phone {
-    width: min(210px, 52vw, 40svh);
-  }
-
-  .hero-chapter {
-    justify-content: flex-start;
-    padding-top: 92px;
-    pointer-events: none;
-  }
-
-  .hero-chapter--intro {
-    padding-top: 86px;
+    width: min(190px, 48vw);
   }
 
   .hero-chapter h1 {
