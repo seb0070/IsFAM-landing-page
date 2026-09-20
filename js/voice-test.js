@@ -168,7 +168,7 @@ function showResult(ageKey) {
   void rateEl.offsetWidth;
   rateEl.style.animation = "";
 
-  saveResult(ageKey, quiz).then((stats) => {
+  saveResult(ageKey, quiz, LANG).then((stats) => {
     if (!stats || quiz.step !== "result") return;
     const row = stats.find((r) => r.age_band === ageKey);
     if (!row) return;

@@ -8,20 +8,24 @@ export const MIN_SAMPLE = 30;
 
 // 새로고침해도 같은 사람이 다시 집계되지 않도록 브라우저에 표시를 남긴다.
 // 이 방문 안에서만 유효한 submitted 플래그로는 새로고침을 막을 수 없다.
-const SUBMIT_KEY = "isfam-voice-test-submitted";
-let submitted = false;
+//
+// 표시는 언어별로 따로 남긴다. 하나로 두면 영어 체험을 해 본 사람이 같은
+// 브라우저에서 한국어 체험에 영원히 기여하지 못한다. 샘플이 다르니 두 참여는
+// 별개다.
+const submitKey = (lang) => `isfam-voice-test-submitted-${lang}`;
+const submitted = new Set();
 
-function alreadySubmitted() {
+function alreadySubmitted(lang) {
   try {
-    return localStorage.getItem(SUBMIT_KEY) !== null;
+    return localStorage.getItem(submitKey(lang)) !== null;
   } catch {
     return false; // 시크릿 모드 등에서 접근이 막히면 막지 않는다
   }
 }
 
-function markSubmitted() {
+function markSubmitted(lang) {
   try {
-    localStorage.setItem(SUBMIT_KEY, new Date().toISOString());
+    localStorage.setItem(submitKey(lang), new Date().toISOString());
   } catch {
     /* 저장 못 해도 흐름은 계속 */
   }
@@ -35,11 +39,17 @@ function sbHeaders() {
   };
 }
 
-async function fetchStats() {
+async function fetchStats(lang = "ko") {
   try {
     const res = await fetch(
       `${SUPABASE_URL}/rest/v1/rpc/voice_test_stats`,
-      { method: "POST", headers: sbHeaders(), body: "{}" },
+      {
+        method: "POST",
+        headers: sbHeaders(),
+        // 한국어는 본문을 비워 함수 기본값('ko')에 기댄다. 마이그레이션 0002
+        // 적용 전에도 그대로 동작한다.
+        body: lang === "ko" ? "{}" : JSON.stringify({ p_lang: lang }),
+      },
     );
     return res.ok ? await res.json() : null;
   } catch {
@@ -49,10 +59,15 @@ async function fetchStats() {
 
 // 처음 완료한 경우에만 저장하고, 집계는 항상 최신값을 돌려준다.
 // 이미 참여한 사람은 다시 해도 집계에 반영되지 않는다.
-export async function saveResult(ageKey, quiz) {
+//
+// lang 필드는 영어일 때만 실어 보낸다. 한국어는 컬럼 기본값('ko')에 기대므로,
+// 마이그레이션 0002 를 적용하기 전에 이 코드가 배포돼도 한국어 수집이 멈추지
+// 않는다. 그 동안 영어 응답은 400 으로 조용히 버려지고 화면은 기준 수치를
+// 보여 준다.
+export async function saveResult(ageKey, quiz, lang = "ko") {
   if (!SUPABASE_KEY) return null;
-  if (!submitted && !alreadySubmitted()) {
-    submitted = true;
+  if (!submitted.has(lang) && !alreadySubmitted(lang)) {
+    submitted.add(lang);
     try {
       const res = await fetch(
         `${SUPABASE_URL}/rest/v1/voice_test_results`,
@@ -64,14 +79,15 @@ export async function saveResult(ageKey, quiz) {
             choice: quiz.choice,
             listened_a: quiz.played.a,
             listened_b: quiz.played.b,
+            ...(lang === "ko" ? {} : { lang }),
           }),
         },
       );
       // 저장이 확인된 뒤에만 표시를 남긴다(실패 시 다음 방문에 다시 시도 가능)
-      if (res.ok) markSubmitted();
+      if (res.ok) markSubmitted(lang);
     } catch {
       /* 저장 실패는 화면을 막지 않는다 */
     }
   }
-  return fetchStats();
+  return fetchStats(lang);
 }
