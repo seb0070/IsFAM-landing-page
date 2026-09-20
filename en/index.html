@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IsFam — Is this really your family calling?</title>
+    <meta
+      name="description"
+      content="AI can clone a family member's voice. IsFam compares the call against your family's enrolled voices, tells you whether it is really them, and tells you what to do next."
+    />
+    <link rel="canonical" href="https://isfam.pages.dev/en/" />
+    <link rel="alternate" hreflang="ko" href="https://isfam.pages.dev/" />
+    <link rel="alternate" hreflang="en" href="https://isfam.pages.dev/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://isfam.pages.dev/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="IsFam" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ko_KR" />
+    <meta property="og:url" content="https://isfam.pages.dev/en/" />
+    <meta property="og:title" content="IsFam — Is this really your family calling?" />
+    <meta
+      property="og:description"
+      content="AI can clone a family member's voice. IsFam compares the call against your family's enrolled voices, tells you whether it is really them, and tells you what to do next."
+    />
+    <meta property="og:image" content="https://isfam.pages.dev/assets/og-en.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+      rel="stylesheet"
+    />
+    <script>
+      if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+      if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+    </script>
+    <!-- 이 파일은 /en/ 에 놓이므로 CSS 경로는 반드시 루트 기준이어야 한다 -->
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/reveal.css" />
+    <link rel="stylesheet" href="/css/nav.css" />
+    <link rel="stylesheet" href="/css/hero.css" />
+    <link rel="stylesheet" href="/css/dark-section.css" />
+    <link rel="stylesheet" href="/css/voice-test.css" />
+    <link rel="stylesheet" href="/css/why.css" />
+    <link rel="stylesheet" href="/css/how.css" />
+    <link rel="stylesheet" href="/css/verdict.css" />
+    <link rel="stylesheet" href="/css/share.css" />
+    <link rel="stylesheet" href="/css/tech.css" />
+    <link rel="stylesheet" href="/css/cta-footer.css" />
+    <link rel="stylesheet" href="/css/content.css" />
+    <link rel="stylesheet" href="/css/responsive.css" />
+    <link rel="stylesheet" href="/css/apple-home.css" />
+    <!-- 표면·정렬을 최종 결정한다. 항상 마지막에 둔다 -->
+    <link rel="stylesheet" href="/css/design-system.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <span class="nav-brand" aria-label="IsFam">
+        <img src="/assets/mascot-splash.webp" width="200" height="200" alt="" />
+        <span>IsFam</span>
+      </span>
+      <a class="nav-link" href="#why">Why</a>
+      <a class="nav-link" href="#test">Try it</a>
+      <a class="nav-link" href="#how">How it works</a>
+      <a class="nav-link" href="#tech">Privacy</a>
+      <a class="nav-lang" href="/" hreflang="ko" lang="ko">한국어</a>
+      <a class="btn-primary" href="#start" data-install>Get IsFam</a>
+    </nav>
+
+    <main id="app">
+      <div data-include="sections/en/hero.html"></div>
+      <div data-include="sections/en/why.html"></div>
+      <div data-include="sections/en/voice-test.html"></div>
+      <div data-include="sections/en/how.html"></div>
+      <div data-include="sections/en/tech.html"></div>
+      <div data-include="sections/en/trust-guide.html"></div>
+      <div data-include="sections/en/cta.html"></div>
+    </main>
+    <div data-include="sections/en/footer.html"></div>
+
+    <noscript>Please enable JavaScript to view this page.</noscript>
+    <script type="module" src="/src/main-en.ts"></script>
+  </body>
+</html>

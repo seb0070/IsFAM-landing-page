@@ -5,7 +5,8 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 
 export default [
-  { ignores: ["dist/**", "node_modules/**"] },
+  // .wrangler 는 `wrangler pages dev` 가 남기는 임시 번들이다. 우리 코드가 아니다
+  { ignores: ["dist/**", "node_modules/**", ".wrangler/**"] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {

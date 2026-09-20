@@ -1100,3 +1100,55 @@ html {
 #test .result-body {
   line-height: 1.9;
 }
+
+/* ── 언어 전환 ───────────────────────────────────────────────────
+   .nav-link 를 쓰면 안 된다. 모바일에서 display:none 이 두 곳
+   (responsive.css, apple-home.css) 에 걸려 있어 폰에서 사라진다.
+   전환은 폰에서도 남아야 하므로 별도 클래스로 세운다.
+
+   메뉴 링크(12px 500)보다 한 단 눌러서 주 버튼과 경쟁하지 않게 하되,
+   테두리로 '누를 수 있는 것'임을 표시한다.                         */
+.nav-lang {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 10px;
+  border: 1px solid rgba(120, 112, 100, 0.28);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--muted);
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.nav-lang:hover {
+  color: var(--ink);
+  border-color: rgba(120, 112, 100, 0.5);
+  background: rgba(120, 112, 100, 0.07);
+}
+
+/* 모바일에서 메뉴 링크가 사라져도 별도 정렬 규칙은 필요 없다.
+   .nav-brand 의 margin-right:auto 가 남은 둘(전환 링크·주 버튼)을
+   오른쪽 끝으로 밀어 준다. 375px 에서 실측: 브랜드 22–94,
+   전환 191–243, 버튼 263–353 (오른쪽 패딩 22px 에 정확히 붙는다). */
+
+/* ── 영어 페이지 활자 ────────────────────────────────────────────
+   body 의 word-break: keep-all 은 한국어 어절을 붙여 두려는 규칙이다.
+   영어에서는 긴 단어가 줄 끝에서 안 접혀 좁은 폭에서 넘친다.       */
+html[lang="en"] body {
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+/* 기본 gap 은 8px 이다. 한국어의 '7,992 건' 은 띄어야 맞지만 영어의
+   '$893M' · '40%' 는 붙어야 맞다. 다만 'seconds' 처럼 단위가 단어인
+   칸은 붙이면 '10seconds' 가 되므로 .stat-fig--word 로 되돌린다     */
+html[lang="en"] .stat-fig {
+  gap: 2px;
+}
+
+html[lang="en"] .stat-fig--word {
+  gap: 8px;
+}
