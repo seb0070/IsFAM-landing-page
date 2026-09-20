@@ -31,6 +31,18 @@
       rel="stylesheet"
     />
     <script>
+      // 이 페이지는 절대 되돌아가지 않는다. 언론에 보내는 링크라 누가 열든
+      // 영어여야 한다. ?lang= 이 붙어 오면 선택만 기록해 둔다 — 다음에
+      // 루트로 들어와도 그 뜻이 지켜진다.
+      (function () {
+        try {
+          var q = new URLSearchParams(location.search).get("lang");
+          if (q) localStorage.setItem("isfam-lang", q);
+        } catch (e) {
+          /* localStorage 가 막혀 있으면 기록만 못 남길 뿐 화면은 정상이다 */
+        }
+      })();
+
       if ("scrollRestoration" in history) history.scrollRestoration = "manual";
       if (location.hash) history.replaceState(null, "", location.pathname + location.search);
     </script>
@@ -63,7 +75,9 @@
       <a class="nav-link" href="#test">Try it</a>
       <a class="nav-link" href="#how">How it works</a>
       <a class="nav-link" href="#tech">Privacy</a>
-      <a class="nav-lang" href="/" hreflang="ko" lang="ko">한국어</a>
+      <!-- ?lang=ko 로 뜻을 남긴다. 루트가 브라우저 언어로 갈라지므로
+           그냥 "/" 로 보내면 영어 브라우저는 곧장 되돌아온다 -->
+      <a class="nav-lang" href="/?lang=ko" hreflang="ko" lang="ko">한국어</a>
       <a class="btn-primary" href="#start" data-install>Get IsFam</a>
     </nav>
 
