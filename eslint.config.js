@@ -24,4 +24,12 @@ export default [
       "no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
     },
   },
+  {
+    // tools/ 는 브라우저가 아니라 Node 에서 도는 도구다. 다만 Playwright 의
+    // page.evaluate 안쪽은 브라우저 코드라 두 전역을 모두 열어 둔다
+    files: ["tools/**/*.{js,mjs}"],
+    languageOptions: {
+      globals: { ...globals.node, ...globals.browser },
+    },
+  },
 ];

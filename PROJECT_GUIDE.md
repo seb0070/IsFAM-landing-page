@@ -113,6 +113,22 @@ npm run build      # 배포용 빌드 (한국어·영어 두 페이지가 함께
 
 `dist` 폴더는 `npm run build` 실행 시 자동으로 다시 생성되므로 직접 수정하지 않습니다.
 
+## 링크 미리보기 이미지
+
+메신저나 메일에 주소를 붙였을 때 뜨는 카드 그림입니다. 실제 히어로 화면을 그대로
+찍어 쓰므로, **히어로 문구나 디자인을 바꾸면 다시 찍어야** 미리보기가 따라옵니다.
+
+```bash
+node tools/shoot-og.mjs                       # 배포본에서 찍는다
+node tools/shoot-og.mjs http://localhost:4173 # 미리보기 서버에서
+```
+
+배포본에서 찍는 것이 기본이라, 바뀐 화면을 먼저 배포한 뒤 실행하고 나온
+`public/assets/og-ko.png`·`og-en.png`를 담아 한 번 더 배포하는 순서가 됩니다.
+
+각 플랫폼이 미리보기를 오래 캐시하므로, 바꾼 뒤에는 한 번씩 갱신해 둡니다
+(페이스북·카카오톡은 <https://developers.facebook.com/tools/debug/>).
+
 ## 배포
 
 Cloudflare Pages **Direct Upload** 방식입니다(Git 연결이 아닙니다).
