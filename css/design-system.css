@@ -894,6 +894,20 @@
 /* 첫 화면의 주 행동. 지금은 #start 안내로 내려가고, 스토어가 열리면
    [data-install] 이 알아서 설치 링크로 바뀐다. 높이·모서리·글자는
    마지막 전환(CTA)의 버튼과 같은 값으로 맞춘다 */
+/* 데스크톱에서도 기능 요약을 주 버튼 위로. 마크업은 버튼이 먼저지만
+   .hero-chapter 가 세로 flex 라 order 로 뒤집을 수 있다.
+   (모바일은 story.css 의 모바일 블록이 이미 같은 순서로 세운다) */
+@media (min-width: 861px) {
+  .hero-chapter .hero-facts {
+    order: 1;
+    margin-top: 22px;
+  }
+
+  .hero-chapter .hero-start {
+    order: 2;
+  }
+}
+
 .hero-start {
   margin-top: 26px;
   min-height: 48px;
