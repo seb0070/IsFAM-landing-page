@@ -1,19 +1,13 @@
 import { MIN_SAMPLE, saveResult } from "./supabase.js";
+import { STRINGS } from "./voice-test-strings.js";
 
 // ── 00 딥보이스 체험 ──
-// rate 는 Supabase 표본이 MIN_SAMPLE 에 못 미칠 때 보여 주는 기준값이다.
-// 이 값이 없으면 결과 자리에 퍼센트를 띄울 수가 없다.
-const AGE_STATS = {
-  1020: { label: "10 · 20세대", rate: 61 },
-  3040: { label: "30 · 40세대", rate: 68 },
-  5060: { label: "50 · 60세대", rate: 82 },
-  70: { label: "70대 이상", rate: 89 },
-};
-// A = 진짜 가족 목소리, B = AI 복제 딥보이스
-const VOICE_SRC = {
-  a: "assets/real-voice.m4a",
-  b: "assets/fake-voice.m4a",
-};
+// 페이지 언어에 따라 문구·음성·연령대 라벨이 갈린다. 언어는 <html lang> 하나로
+// 정해지므로 런타임 분기가 이 한 줄뿐이다.
+const LANG = (document.documentElement.lang || "ko").slice(0, 2).toLowerCase();
+
+const t = STRINGS[LANG] ?? STRINGS.ko;
+const VOICE_SRC = t.voice;
 const FALLBACK_MS = 4200;
 
 const quiz = {
@@ -52,10 +46,10 @@ const audio = {};
 
 // 재생 전에는 길이(0:14)를, 재생 중·후에는 상태를 보여 준다
 function stateText(id) {
-  if (quiz.playing === id) return "재생 중";
-  if (quiz.played[id]) return "들어봤음";
+  if (quiz.playing === id) return t.playing;
+  if (quiz.played[id]) return t.played;
   const d = audio[id].duration;
-  if (!isFinite(d) || !d) return "듣기 전";
+  if (!isFinite(d) || !d) return t.idle;
   const s = Math.round(d);
   return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
 }
@@ -83,13 +77,9 @@ function paintWaves() {
 
 function describe(id) {
   if (quiz.step === "result") {
-    return id === "a"
-      ? "진짜 가족 목소리 샘플입니다."
-      : "AI 복제 딥보이스 샘플입니다.";
+    return id === "a" ? t.descReal : t.descFake;
   }
-  return audioBroken
-    ? "음성을 재생할 수 없어 파형만 표시됩니다."
-    : "같은 사람의 목소리로 들립니다. 이어폰으로 들어보세요.";
+  return audioBroken ? t.descBroken : t.descIdle;
 }
 
 function render() {
@@ -146,47 +136,29 @@ function fallbackProgress(id) {
 
 // rate: 표시할 실패율(%), sample: 실제 응답 수(없으면 기준값으로 간주)
 function renderResult(ageKey, rate, sample) {
-  const st = AGE_STATS[ageKey] || AGE_STATS[5060];
+  const label = t.ages[ageKey] ?? t.ages[5060];
   const ok = quiz.choice === "a";
   const color = ok ? "var(--safe-lt)" : "var(--danger-lt)";
   const set = (key, text) => {
     document.querySelector(`[data-result="${key}"]`).textContent = text;
   };
 
-  set(
-    "kicker",
-    ok ? "정답 · 진짜 가족은 음성 A" : "오답 · 진짜 가족은 음성 A",
-  );
+  set("kicker", ok ? t.kickerOk : t.kickerNo);
   // 큰 자리는 언제나 퍼센트다. 맞혔는지 여부는 위 kicker 가 말한다
   set("rate", `${rate}%`);
-  set(
-    "cap",
-    sample
-      ? `${st.label} 구별 실패율 · 참여 ${sample}명`
-      : `${st.label} 구별 실패율`,
-  );
-  set(
-    "title",
-    ok
-      ? "맞혔어요. 음성 B가 딥보이스입니다"
-      : "틀렸어요. 딥보이스는 음성 B였습니다",
-  );
-  set(
-    "body",
-    ok
-      ? `한 번 맞혔더라도 안심할 수는 없습니다. 같은 연령대 참여자 중 ${rate}%는 두 음성을 구별하지 못했고, 실제 통화에서는 상대가 가족의 이름과 상황까지 말합니다.`
-      : "대부분의 사람이 딥보이스를 구별하지 못합니다. 사람의 청각은 미세한 주파수 패턴 차이를 듣도록 설계되지 않았습니다.",
-  );
+  set("cap", t.cap(label, sample));
+  set("title", ok ? t.titleOk : t.titleNo);
+  set("body", ok ? t.bodyOk(rate) : t.bodyNo);
 
   document.querySelector('[data-result="kicker"]').style.color = color;
   document.querySelector('[data-result="rate"]').style.color = color;
 }
 
 function showResult(ageKey) {
-  const st = AGE_STATS[ageKey] || AGE_STATS[5060];
+  const baseline = t.rates[ageKey] ?? t.rates[5060];
 
   // 기준값으로 즉시 보여 주고, 수집 결과가 오면 실제 수치로 교체한다
-  renderResult(ageKey, st.rate, null);
+  renderResult(ageKey, baseline, null);
   quiz.step = "result";
   render();
 
