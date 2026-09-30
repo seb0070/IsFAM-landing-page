@@ -721,6 +721,16 @@
   transition: transform 0.9s var(--ease), opacity 0.5s ease;
 }
 
+/* 숫자가 아니라 문구가 들어가는 칸. why.css 에 .stat-copy 변형이 이미
+   있지만 여기 #why 규칙이 특이도에서 이겨 58px 로 끌려 올라간다.
+   ('통화 직후'·'Right after the call' 이 카드를 넘긴다)               */
+#why .stat-fig.stat-copy b {
+  font-size: clamp(24px, 2.4vw, 34px);
+  line-height: 1.2;
+  /* 문구는 두 줄이 될 수 있다. 숫자용 한 줄 기준을 풀어 준다 */
+  white-space: normal;
+}
+
 #why .stat-fig span {
   font-size: 17px;
 }
